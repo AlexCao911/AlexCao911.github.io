@@ -62,6 +62,14 @@ describe("personal website routing", () => {
     expect(document.querySelector(".notes-hero .cube .cube-face")).toBeInTheDocument();
   });
 
+  test("uses the official ReactBits Cubes default grid on the notes hero", () => {
+    window.history.pushState({}, "", "/notes");
+
+    render(<App />);
+
+    expect(document.querySelectorAll(".notes-hero .cube")).toHaveLength(100);
+  });
+
   test("mounts the ReactBits Dither stage on the home page", () => {
     window.history.pushState({}, "", "/");
 
