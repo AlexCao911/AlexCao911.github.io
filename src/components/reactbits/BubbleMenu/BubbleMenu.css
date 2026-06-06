@@ -125,8 +125,9 @@
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-top: 96px;
   pointer-events: none;
   z-index: 98;
 }
@@ -235,9 +236,8 @@
 
 @media (max-width: 899px) {
   .bubble-menu-items {
-    padding-top: 0px;
     align-items: flex-start;
-    padding-top: 120px;
+    padding-top: 82px;
   }
 
   .bubble-menu-items .pill-list {

@@ -34,6 +34,8 @@ describe("personal website routing", () => {
     render(<App />);
 
     expect(document.querySelectorAll(".lanyard")).toHaveLength(1);
+    expect(document.querySelectorAll(".lanyard__info")).toHaveLength(1);
+    expect(document.querySelectorAll(".lanyard__card")).toHaveLength(0);
     expect(document.querySelectorAll(".lanyard__label")).toHaveLength(0);
   });
 
@@ -86,6 +88,15 @@ describe("personal website routing", () => {
 
     const scrambledParagraph = document.querySelector(".page-footer .scrambled-text p");
     expect(scrambledParagraph).toHaveTextContent("Gallery index / experiments / prototypes");
+  });
+
+  test("renders footers as full-bleed sections", () => {
+    window.history.pushState({}, "", "/notes");
+
+    render(<App />);
+
+    expect(document.querySelector(".page-footer")).toBeInTheDocument();
+    expect(document.querySelector(".page-footer .scrambled-text")).toBeInTheDocument();
   });
 
   test("uses the ReactBits Cubes face structure on the notes hero", () => {

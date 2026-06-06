@@ -50,18 +50,18 @@ a {
 
 .nav-lanyard-slot {
   position: absolute;
-  top: 88px;
-  right: 2em;
+  top: 72px;
+  right: max(24px, env(safe-area-inset-right));
   z-index: 97;
-  width: 288px;
-  height: 300px;
+  width: min(440px, calc(100vw - 48px));
+  height: 560px;
   pointer-events: none;
 }
 
 .lanyard {
   position: relative;
-  width: 288px;
-  min-height: 320px;
+  width: 100%;
+  min-height: 560px;
   pointer-events: auto;
   perspective: 900px;
 }
@@ -72,10 +72,10 @@ a {
 
 .official-lanyard-viewport {
   position: absolute;
-  top: -112px;
+  top: -172px;
   left: 50%;
-  width: 330px;
-  height: 300px;
+  width: min(620px, 100vw);
+  height: 620px;
   overflow: visible;
   transform: translateX(-50%);
   pointer-events: auto;
@@ -83,34 +83,39 @@ a {
 }
 
 .official-lanyard-viewport > div {
-  width: 330px !important;
-  height: 420px !important;
-  transform: translateY(-42px) scale(0.72);
+  width: 620px !important;
+  height: 620px !important;
+  transform: translateY(-34px) scale(0.82);
   transform-origin: top center;
 }
 
-.lanyard__card {
+.lanyard__info {
   position: absolute;
-  top: 190px;
+  top: 312px;
   right: 0;
   display: grid;
-  width: 288px;
-  min-height: 110px;
-  gap: 8px;
-  padding: 16px;
-  border: 1px solid var(--ink);
-  border-radius: 8px;
-  background: #ffffff;
-  box-shadow: 0 18px 40px rgba(17, 17, 17, 0.18);
+  width: min(360px, 100%);
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--ink);
   transform-style: preserve-3d;
   transition: transform 180ms ease;
   z-index: 3;
 }
 
 .lanyard__email {
-  font-size: 15px;
+  font-size: clamp(18px, 2.1vw, 22px);
   font-weight: 900;
   overflow-wrap: anywhere;
+}
+
+.lanyard__info span {
+  font-size: clamp(17px, 1.8vw, 20px);
+  line-height: 1.35;
 }
 
 .page {
@@ -327,10 +332,13 @@ h2 {
 }
 
 .page-footer {
-  width: min(1120px, 100%);
-  margin: 82px auto 0;
-  border: 1px solid var(--ink);
-  border-radius: 8px;
+  display: grid;
+  width: 100vw;
+  min-height: clamp(260px, 34vw, 440px);
+  margin: 96px calc(50% - 50vw) -48px;
+  place-items: center;
+  border: 0;
+  border-radius: 0;
   background: var(--ink);
   color: #ffffff;
   font-weight: 900;
@@ -347,20 +355,21 @@ h2 {
   }
 
   .nav-lanyard-slot {
-    top: 86px;
+    top: 92px;
     right: 16px;
-    width: 228px;
+    width: min(320px, calc(100vw - 32px));
     height: 210px;
   }
 
   .lanyard {
-    width: 228px;
+    width: 100%;
     min-height: 210px;
   }
 
-  .lanyard__card {
-    top: 62px;
-    width: 228px;
+  .lanyard__info {
+    top: 56px;
+    width: min(320px, 100%);
+    text-align: left;
   }
 
   .official-lanyard-viewport {

@@ -17,11 +17,11 @@ export function LanyardContact() {
     <div className="lanyard" aria-label="Contact information">
       {!isTest && (
         <div className="official-lanyard-viewport" aria-hidden="true">
-          <Lanyard position={[0, 0, 20]} fov={24} gravity={[0, -36, 0]} />
+          <Lanyard position={[0, 0, 18]} fov={20} gravity={[0, -36, 0]} />
         </div>
       )}
       <div
-        className="lanyard__card"
+        className="lanyard__info"
         onPointerMove={handlePointerMove}
         onPointerLeave={() => setTilt({ x: 0, y: 0 })}
         style={{ transform: `rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)` }}
