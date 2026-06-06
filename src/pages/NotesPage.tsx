@@ -33,7 +33,9 @@ export function NotesPage() {
         ))}
       </section>
       <footer className="page-footer">
-        <ScrambledText className="scrambled-text">Notes archive / fragments / field recordings</ScrambledText>
+        <ScrambledText className="scrambled-text">
+          the people who are crazy enough to think they can change the world, are the ones who do
+        </ScrambledText>
       </footer>
     </main>
   );

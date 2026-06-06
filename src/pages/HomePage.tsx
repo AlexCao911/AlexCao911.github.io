@@ -13,7 +13,9 @@ export function HomePage() {
         <p className="home-intro">{profile.intro}</p>
       </section>
       <footer className="page-footer">
-        <ScrambledText className="scrambled-text">Home Gallery Notes Contact</ScrambledText>
+        <ScrambledText className="scrambled-text">
+          the people who are crazy enough to think they can change the world, are the ones who do
+        </ScrambledText>
       </footer>
     </main>
   );

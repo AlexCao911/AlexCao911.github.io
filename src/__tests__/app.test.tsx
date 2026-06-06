@@ -13,8 +13,7 @@ describe("personal website routing", () => {
     render(<App />);
 
     expect(screen.getByRole("heading", { name: /alexander cou/i })).toBeInTheDocument();
-    expect(screen.getByLabelText(/contact information/i)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /hello@alexandercou\.com/i })).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /hello@alexandercou\.com/i })).not.toBeInTheDocument();
   });
 
   test("uses the official ReactBits BubbleMenu navigation shell", () => {
@@ -28,15 +27,16 @@ describe("personal website routing", () => {
     expect(document.querySelectorAll(".bubble-link")).toHaveLength(0);
   });
 
-  test("keeps one lanyard contact panel without a visible contact chip", () => {
+  test("keeps one decorative lanyard without contact text", () => {
     window.history.pushState({}, "", "/");
 
     render(<App />);
 
     expect(document.querySelectorAll(".lanyard")).toHaveLength(1);
-    expect(document.querySelectorAll(".lanyard__info")).toHaveLength(1);
+    expect(document.querySelectorAll(".lanyard__info")).toHaveLength(0);
     expect(document.querySelectorAll(".lanyard__card")).toHaveLength(0);
     expect(document.querySelectorAll(".lanyard__label")).toHaveLength(0);
+    expect(screen.queryByText(/shanghai \/ remote/i)).not.toBeInTheDocument();
   });
 
   test("renders gallery cards and a work detail page", () => {
@@ -87,7 +87,9 @@ describe("personal website routing", () => {
     render(<App />);
 
     const scrambledParagraph = document.querySelector(".page-footer .scrambled-text p");
-    expect(scrambledParagraph).toHaveTextContent("Gallery index / experiments / prototypes");
+    expect(scrambledParagraph).toHaveTextContent(
+      "the people who are crazy enough to think they can change the world, are the ones who do"
+    );
   });
 
   test("renders footers as full-bleed sections", () => {

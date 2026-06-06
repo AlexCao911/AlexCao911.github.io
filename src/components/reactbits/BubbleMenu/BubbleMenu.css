@@ -127,7 +127,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 96px;
+  padding-top: 84px;
   pointer-events: none;
   z-index: 98;
 }
@@ -146,14 +146,14 @@
   padding: 0 24px;
   display: flex;
   flex-wrap: wrap;
-  gap: 0;
-  row-gap: 4px;
+  gap: 28px;
+  row-gap: 18px;
   width: 100%;
-  max-width: 1600px;
+  max-width: 860px;
   margin-left: auto;
   margin-right: auto;
   pointer-events: auto;
-  justify-content: stretch;
+  justify-content: center;
 }
 
 .bubble-menu-items .pill-list .pill-spacer {
@@ -166,7 +166,7 @@
   display: flex;
   justify-content: center;
   align-items: stretch;
-  flex: 0 0 calc(100% / 3);
+  flex: 0 1 clamp(260px, 30vw, 340px);
   box-sizing: border-box;
 }
 
@@ -183,13 +183,13 @@
   --pill-color: #111;
   --pill-border: rgba(0, 0, 0, 0.12);
   --item-rot: 0deg;
-  --pill-min-h: 160px;
+  --pill-min-h: 92px;
   --hover-bg: #f3f4f6;
   --hover-color: #111;
   width: 100%;
   min-height: var(--pill-min-h);
-  padding: clamp(1.5rem, 3vw, 8rem) 0;
-  font-size: clamp(1.5rem, 4vw, 4rem);
+  padding: clamp(0.85rem, 1.6vw, 2rem) 0;
+  font-size: clamp(1.35rem, 2.6vw, 2.75rem);
   font-weight: 400;
   line-height: 0;
   border-radius: 999px;
@@ -237,23 +237,25 @@
 @media (max-width: 899px) {
   .bubble-menu-items {
     align-items: flex-start;
-    padding-top: 82px;
+    padding-top: 76px;
   }
 
   .bubble-menu-items .pill-list {
-    row-gap: 16px;
+    gap: 14px;
+    row-gap: 14px;
+    justify-content: center;
   }
 
   .bubble-menu-items .pill-list .pill-col {
-    flex: 0 0 100%;
+    flex: 0 1 min(360px, 100%);
     margin-left: 0 !important;
     overflow: visible;
   }
 
   .bubble-menu-items .pill-link {
-    font-size: clamp(1.2rem, 3vw, 4rem);
-    padding: clamp(1rem, 2vw, 2rem) 0;
-    min-height: 80px;
+    font-size: clamp(1.2rem, 6vw, 2rem);
+    padding: clamp(0.8rem, 2vw, 1.25rem) 0;
+    min-height: 64px;
   }
 
   .bubble-menu-items .pill-link:hover {

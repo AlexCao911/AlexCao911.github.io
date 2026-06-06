@@ -49,7 +49,9 @@ export function GalleryPage() {
         ))}
       </section>
       <footer className="page-footer">
-        <ScrambledText className="scrambled-text">Gallery index / experiments / prototypes</ScrambledText>
+        <ScrambledText className="scrambled-text">
+          the people who are crazy enough to think they can change the world, are the ones who do
+        </ScrambledText>
       </footer>
     </main>
   );
