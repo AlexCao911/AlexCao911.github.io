@@ -1,8 +1,10 @@
 import { PointerEvent, useState } from "react";
 import { profile } from "../../data/profile";
+import Lanyard from "./Lanyard";
 
 export function LanyardContact() {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const isTest = import.meta.env.MODE === "test";
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -13,7 +15,11 @@ export function LanyardContact() {
 
   return (
     <div className="lanyard" aria-label="Contact card">
-      <div className="lanyard__cord" aria-hidden="true" />
+      {!isTest && (
+        <div className="official-lanyard-viewport" aria-hidden="true">
+          <Lanyard position={[0, 0, 20]} fov={24} gravity={[0, -36, 0]} />
+        </div>
+      )}
       <div
         className="lanyard__card"
         onPointerMove={handlePointerMove}

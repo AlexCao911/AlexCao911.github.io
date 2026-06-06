@@ -104,26 +104,32 @@ a {
 .lanyard {
   position: relative;
   width: 264px;
-  min-height: 188px;
+  min-height: 268px;
   pointer-events: auto;
   perspective: 900px;
 }
 
-.lanyard__cord {
+.official-lanyard-viewport {
   position: absolute;
   top: -18px;
   left: 50%;
-  width: 88px;
-  height: 88px;
-  border-left: 3px solid var(--tomato);
-  border-bottom: 3px solid var(--tomato);
-  transform: translateX(-50%) rotate(-45deg);
-  transform-origin: center;
+  width: 330px;
+  height: 260px;
+  overflow: hidden;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+.official-lanyard-viewport > div {
+  width: 330px !important;
+  height: 420px !important;
+  transform: translateY(-42px) scale(0.76);
+  transform-origin: top center;
 }
 
 .lanyard__card {
   position: absolute;
-  top: 48px;
+  top: 116px;
   right: 0;
   display: grid;
   width: 264px;
@@ -136,6 +142,7 @@ a {
   box-shadow: 0 18px 40px rgba(17, 17, 17, 0.18);
   transform-style: preserve-3d;
   transition: transform 180ms ease;
+  z-index: 2;
 }
 
 .lanyard__label {
@@ -340,7 +347,12 @@ h2 {
   }
 
   .lanyard__card {
+    top: 48px;
     width: 228px;
+  }
+
+  .official-lanyard-viewport {
+    display: none;
   }
 
   .page {
