@@ -242,45 +242,6 @@ h2 {
   gap: 44px;
 }
 
-.cube-field {
-  display: grid;
-  aspect-ratio: 1;
-  width: min(420px, 76vw);
-  gap: 9px;
-  padding: 20px;
-}
-
-.cube {
-  position: relative;
-  aspect-ratio: 1;
-  border: 1px solid var(--ink);
-  background: var(--tomato);
-  transform-style: preserve-3d;
-  transition:
-    transform 180ms ease,
-    opacity 180ms ease;
-}
-
-.cube::before,
-.cube::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 1px solid var(--ink);
-}
-
-.cube::before {
-  background: var(--cyan);
-  transform: translateY(9px) skewX(-45deg);
-  transform-origin: bottom;
-}
-
-.cube::after {
-  background: var(--lime);
-  transform: translateX(9px) skewY(-45deg);
-  transform-origin: right;
-}
-
 .work-grid,
 .notes-list {
   display: grid;

@@ -7,7 +7,16 @@ export function NotesPage() {
   return (
     <main className="page notes-page">
       <section className="page-hero notes-hero">
-        <Cubes />
+        <Cubes
+          gridSize={8}
+          cubeSize={28}
+          maxAngle={45}
+          radius={3}
+          cellGap={4}
+          borderStyle="1px solid #111111"
+          faceColor="#120F17"
+          rippleColor="#b7ff5d"
+        />
         <div>
           <p className="eyebrow">Writing log</p>
           <h1>Notes</h1>

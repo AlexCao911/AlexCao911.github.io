@@ -53,4 +53,12 @@ describe("personal website routing", () => {
     const scrambledParagraph = document.querySelector(".page-footer .scrambled-text p");
     expect(scrambledParagraph).toHaveTextContent("Gallery index / experiments / prototypes");
   });
+
+  test("uses the ReactBits Cubes face structure on the notes hero", () => {
+    window.history.pushState({}, "", "/notes");
+
+    render(<App />);
+
+    expect(document.querySelector(".notes-hero .cube .cube-face")).toBeInTheDocument();
+  });
 });
