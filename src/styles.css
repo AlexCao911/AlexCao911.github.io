@@ -101,7 +101,7 @@ a {
 
 .lanyard {
   position: relative;
-  width: 230px;
+  width: 264px;
   min-height: 188px;
   pointer-events: auto;
   perspective: 900px;
@@ -124,7 +124,7 @@ a {
   top: 48px;
   right: 0;
   display: grid;
-  width: 230px;
+  width: 264px;
   min-height: 132px;
   gap: 8px;
   padding: 16px;
@@ -147,6 +147,7 @@ a {
 }
 
 .lanyard__email {
+  font-size: 15px;
   font-weight: 900;
   overflow-wrap: anywhere;
 }
@@ -399,12 +400,12 @@ h2 {
   }
 
   .lanyard {
-    width: 210px;
+    width: 228px;
     min-height: 176px;
   }
 
   .lanyard__card {
-    width: 210px;
+    width: 228px;
   }
 
   .page {

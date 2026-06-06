@@ -10,7 +10,7 @@ describe("personal website routing", () => {
 
     expect(screen.getByRole("heading", { name: /alexander cou/i })).toBeInTheDocument();
     expect(screen.getByText(/contact/i)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /alexander\.cou@example\.com/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /hello@alexandercou\.com/i })).toBeInTheDocument();
   });
 
   test("renders gallery cards and a work detail page", () => {
