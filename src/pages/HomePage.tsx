@@ -1,5 +1,5 @@
 import { DitherBackground } from "../components/reactbits/DitherBackground";
-import { ScrambledText } from "../components/reactbits/ScrambledText";
+import { SiteFooter } from "../components/SiteFooter";
 import { profile } from "../data/profile";
 
 export function HomePage() {
@@ -12,11 +12,7 @@ export function HomePage() {
         <p className="home-role">{profile.role}</p>
         <p className="home-intro">{profile.intro}</p>
       </section>
-      <footer className="page-footer">
-        <ScrambledText className="scrambled-text">
-          the people who are crazy enough to think they can change the world, are the ones who do
-        </ScrambledText>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

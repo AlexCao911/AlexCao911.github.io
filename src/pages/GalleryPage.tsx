@@ -1,5 +1,5 @@
 import { MagnetLines } from "../components/reactbits/MagnetLines";
-import { ScrambledText } from "../components/reactbits/ScrambledText";
+import { SiteFooter } from "../components/SiteFooter";
 import { works } from "../data/gallery";
 import { handleInternalLink } from "../router";
 import type { CSSProperties } from "react";
@@ -48,11 +48,7 @@ export function GalleryPage() {
           </article>
         ))}
       </section>
-      <footer className="page-footer">
-        <ScrambledText className="scrambled-text">
-          the people who are crazy enough to think they can change the world, are the ones who do
-        </ScrambledText>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

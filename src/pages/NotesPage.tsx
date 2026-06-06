@@ -1,5 +1,5 @@
 import { Cubes } from "../components/reactbits/Cubes";
-import { ScrambledText } from "../components/reactbits/ScrambledText";
+import { SiteFooter } from "../components/SiteFooter";
 import { notes } from "../data/notes";
 import { handleInternalLink } from "../router";
 
@@ -32,11 +32,7 @@ export function NotesPage() {
           </article>
         ))}
       </section>
-      <footer className="page-footer">
-        <ScrambledText className="scrambled-text">
-          the people who are crazy enough to think they can change the world, are the ones who do
-        </ScrambledText>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
