@@ -3,6 +3,7 @@ dist/
 build/
 coverage/
 .vite/
+.playwright-cli/
 *.tsbuildinfo
 
 .DS_Store
