@@ -69,4 +69,17 @@ describe("personal website routing", () => {
 
     expect(document.querySelector(".dither-background .reactbits-dither-stage")).toBeInTheDocument();
   });
+
+  test("uses a monochrome gallery accent palette", () => {
+    window.history.pushState({}, "", "/gallery");
+
+    render(<App />);
+
+    const workCards = Array.from(document.querySelectorAll<HTMLElement>(".work-card"));
+    expect(workCards.map((card) => card.style.getPropertyValue("--accent"))).toEqual([
+      "#111111",
+      "#111111",
+      "#111111",
+    ]);
+  });
 });

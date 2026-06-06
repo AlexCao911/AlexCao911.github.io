@@ -15,7 +15,7 @@ export function NotesPage() {
           cellGap={4}
           borderStyle="1px solid #111111"
           faceColor="#120F17"
-          rippleColor="#b7ff5d"
+          rippleColor="#ffffff"
         />
         <div>
           <p className="eyebrow">Writing log</p>

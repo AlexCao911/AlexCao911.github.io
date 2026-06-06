@@ -8,7 +8,7 @@ export function DitherBackground() {
       <div className="reactbits-dither-stage">
         {!isTest && (
           <Dither
-            waveColor={[0.74, 1, 0.72]}
+            waveColor={[0.82, 0.82, 0.82]}
             waveSpeed={0.035}
             waveFrequency={3.5}
             waveAmplitude={0.32}

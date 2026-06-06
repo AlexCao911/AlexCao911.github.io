@@ -11,9 +11,8 @@
   --ink: #111111;
   --muted: #5b5d5d;
   --line: rgba(17, 17, 17, 0.14);
-  --cyan: #00bcd4;
-  --tomato: #ff5c35;
-  --lime: #b7ff5d;
+  --accent: #111111;
+  --ghost: #efefec;
 }
 
 * {
@@ -149,7 +148,8 @@ a {
   width: fit-content;
   padding: 3px 8px;
   border-radius: 999px;
-  background: var(--lime);
+  background: var(--ink);
+  color: #ffffff;
   font-size: 12px;
   font-weight: 900;
   text-transform: uppercase;
@@ -180,8 +180,8 @@ a {
   width: 100%;
   height: 100%;
   background:
-    linear-gradient(120deg, rgba(255, 92, 53, 0.18), transparent 34%),
-    radial-gradient(circle at 72% 20%, rgba(183, 255, 93, 0.26), transparent 28%),
+    linear-gradient(120deg, rgba(17, 17, 17, 0.08), transparent 34%),
+    radial-gradient(circle at 72% 20%, rgba(17, 17, 17, 0.1), transparent 28%),
     var(--paper);
   overflow: hidden;
 }
@@ -275,11 +275,11 @@ h2 {
   border: 1px solid var(--ink);
   border-radius: 8px;
   background: #ffffff;
-  box-shadow: inset 0 -8px 0 var(--accent, var(--cyan));
+  box-shadow: inset 0 -8px 0 var(--accent);
 }
 
 .note-card {
-  --accent: var(--lime);
+  --accent: var(--ink);
 }
 
 .work-card__meta {
