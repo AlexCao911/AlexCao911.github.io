@@ -1,6 +1,10 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, test } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, test } from "vitest";
 import App from "../App";
+
+afterEach(() => {
+  cleanup();
+});
 
 describe("personal website routing", () => {
   test("renders the home introduction and contact email", () => {
@@ -39,5 +43,14 @@ describe("personal website routing", () => {
     rerender(<App />);
 
     expect(screen.getByRole("heading", { name: /designing with motion/i })).toBeInTheDocument();
+  });
+
+  test("uses the ReactBits ScrambledText paragraph structure in footers", () => {
+    window.history.pushState({}, "", "/gallery");
+
+    render(<App />);
+
+    const scrambledParagraph = document.querySelector(".page-footer .scrambled-text p");
+    expect(scrambledParagraph).toHaveTextContent("Gallery index / experiments / prototypes");
   });
 });

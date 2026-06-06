@@ -8,7 +8,15 @@ export function GalleryPage() {
   return (
     <main className="page gallery-page">
       <section className="page-hero gallery-hero">
-        <MagnetLines />
+        <MagnetLines
+          rows={9}
+          columns={9}
+          containerSize="min(420px, 76vw)"
+          lineColor="#111111"
+          lineWidth="4px"
+          lineHeight="26px"
+          baseAngle={-10}
+        />
         <div>
           <p className="eyebrow">Selected work</p>
           <h1>Gallery</h1>
@@ -39,7 +47,7 @@ export function GalleryPage() {
         ))}
       </section>
       <footer className="page-footer">
-        <ScrambledText>Gallery index / experiments / prototypes</ScrambledText>
+        <ScrambledText className="scrambled-text">Gallery index / experiments / prototypes</ScrambledText>
       </footer>
     </main>
   );

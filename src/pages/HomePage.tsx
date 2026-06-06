@@ -13,7 +13,7 @@ export function HomePage() {
         <p className="home-intro">{profile.intro}</p>
       </section>
       <footer className="page-footer">
-        <ScrambledText>Home Gallery Notes Contact</ScrambledText>
+        <ScrambledText className="scrambled-text">Home Gallery Notes Contact</ScrambledText>
       </footer>
     </main>
   );

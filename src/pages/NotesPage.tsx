@@ -31,7 +31,7 @@ export function NotesPage() {
         ))}
       </section>
       <footer className="page-footer">
-        <ScrambledText>Notes archive / fragments / field recordings</ScrambledText>
+        <ScrambledText className="scrambled-text">Notes archive / fragments / field recordings</ScrambledText>
       </footer>
     </main>
   );

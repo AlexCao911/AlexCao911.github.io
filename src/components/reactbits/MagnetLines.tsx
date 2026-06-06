@@ -1,39 +1,101 @@
-import { PointerEvent, useMemo, useState } from "react";
+import React, { CSSProperties, useEffect, useRef } from "react";
 
 type MagnetLinesProps = {
   rows?: number;
   columns?: number;
+  containerSize?: string;
+  lineColor?: string;
+  lineWidth?: string;
+  lineHeight?: string;
   baseAngle?: number;
+  className?: string;
+  style?: CSSProperties;
 };
 
-export function MagnetLines({ rows = 9, columns = 12, baseAngle = -10 }: MagnetLinesProps) {
-  const [pointer, setPointer] = useState({ x: 0.5, y: 0.5 });
-  const cells = useMemo(() => Array.from({ length: rows * columns }, (_, index) => index), [rows, columns]);
+export const MagnetLines: React.FC<MagnetLinesProps> = ({
+  rows = 9,
+  columns = 9,
+  containerSize = "80vmin",
+  lineColor = "#efefef",
+  lineWidth = "1vmin",
+  lineHeight = "6vmin",
+  baseAngle = -10,
+  className = "",
+  style = {},
+}) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setPointer({
-      x: (event.clientX - rect.left) / rect.width,
-      y: (event.clientY - rect.top) / rect.height,
-    });
-  };
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const items = container.querySelectorAll<HTMLSpanElement>("span");
+
+    const onPointerMove = (pointer: { x: number; y: number }) => {
+      items.forEach((item) => {
+        const rect = item.getBoundingClientRect();
+        const centerX = rect.x + rect.width / 2;
+        const centerY = rect.y + rect.height / 2;
+
+        const b = pointer.x - centerX;
+        const a = pointer.y - centerY;
+        const c = Math.sqrt(a * a + b * b) || 1;
+        const r = ((Math.acos(b / c) * 180) / Math.PI) * (pointer.y > centerY ? 1 : -1);
+
+        item.style.setProperty("--rotate", `${r}deg`);
+      });
+    };
+
+    const handlePointerMove = (e: PointerEvent) => {
+      onPointerMove({ x: e.x, y: e.y });
+    };
+
+    window.addEventListener("pointermove", handlePointerMove);
+
+    if (items.length) {
+      const middleIndex = Math.floor(items.length / 2);
+      const rect = items[middleIndex].getBoundingClientRect();
+      onPointerMove({ x: rect.x, y: rect.y });
+    }
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+    };
+  }, [rows, columns]);
+
+  const total = rows * columns;
+  const spans = Array.from({ length: total }, (_, i) => (
+    <span
+      key={i}
+      className="block origin-center"
+      style={
+        {
+          backgroundColor: lineColor,
+          width: lineWidth,
+          height: lineHeight,
+          "--rotate": `${baseAngle}deg`,
+          transform: "rotate(var(--rotate))",
+          willChange: "transform",
+        } as React.CSSProperties
+      }
+    />
+  ));
 
   return (
     <div
-      className="magnet-lines"
-      onPointerMove={handlePointerMove}
-      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
-      aria-hidden="true"
+      ref={containerRef}
+      className={`grid place-items-center ${className}`}
+      style={{
+        gridTemplateColumns: `repeat(${columns}, 1fr)`,
+        gridTemplateRows: `repeat(${rows}, 1fr)`,
+        width: containerSize,
+        height: containerSize,
+        ...style,
+      }}
     >
-      {cells.map((cell) => {
-        const row = Math.floor(cell / columns);
-        const column = cell % columns;
-        const dx = pointer.x - (column + 0.5) / columns;
-        const dy = pointer.y - (row + 0.5) / rows;
-        const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90 + baseAngle;
-
-        return <span key={cell} style={{ transform: `rotate(${angle}deg)` }} />;
-      })}
+      {spans}
     </div>
   );
-}
+};
+
+export default MagnetLines;
