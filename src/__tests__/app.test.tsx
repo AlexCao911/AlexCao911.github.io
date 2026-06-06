@@ -13,8 +13,28 @@ describe("personal website routing", () => {
     render(<App />);
 
     expect(screen.getByRole("heading", { name: /alexander cou/i })).toBeInTheDocument();
-    expect(screen.getByText(/contact/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/contact information/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /hello@alexandercou\.com/i })).toBeInTheDocument();
+  });
+
+  test("uses the official ReactBits BubbleMenu navigation shell", () => {
+    window.history.pushState({}, "", "/gallery");
+
+    render(<App />);
+
+    expect(screen.getByRole("navigation", { name: /main navigation/i })).toHaveClass("bubble-menu");
+    expect(screen.getByRole("button", { name: /toggle site menu/i })).toHaveClass("toggle-bubble");
+    expect(document.querySelector(".bubble-menu .logo-bubble")).toBeInTheDocument();
+    expect(document.querySelectorAll(".bubble-link")).toHaveLength(0);
+  });
+
+  test("keeps one lanyard contact panel without a visible contact chip", () => {
+    window.history.pushState({}, "", "/");
+
+    render(<App />);
+
+    expect(document.querySelectorAll(".lanyard")).toHaveLength(1);
+    expect(document.querySelectorAll(".lanyard__label")).toHaveLength(0);
   });
 
   test("renders gallery cards and a work detail page", () => {

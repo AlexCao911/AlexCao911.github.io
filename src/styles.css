@@ -37,102 +37,65 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-.site-nav {
-  position: fixed;
-  top: 18px;
-  left: 18px;
-  right: 18px;
-  z-index: 20;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  pointer-events: none;
-}
-
-.bubble-menu {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  pointer-events: auto;
-}
-
-.bubble-logo,
-.bubble-link {
+.bubble-home-link {
   display: inline-flex;
-  min-width: 50px;
-  min-height: 50px;
+  width: 100%;
+  height: 100%;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--ink);
-  border-radius: 999px;
-  background: rgba(247, 247, 244, 0.84);
   color: var(--ink);
-  text-decoration: none;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 12px 30px rgba(17, 17, 17, 0.12);
-  transition:
-    transform 180ms ease,
-    background 180ms ease,
-    color 180ms ease;
-}
-
-.bubble-logo {
   font-weight: 900;
+  text-decoration: none;
 }
 
-.bubble-menu__items {
-  display: flex;
-  gap: 8px;
-}
-
-.bubble-link {
-  min-width: 96px;
-  padding: 0 18px;
-  font-weight: 800;
-}
-
-.bubble-logo:hover,
-.bubble-link:hover,
-.bubble-link.is-active {
-  transform: translateY(-2px);
-  background: var(--ink);
-  color: var(--paper);
+.nav-lanyard-slot {
+  position: fixed;
+  top: 88px;
+  right: 2em;
+  z-index: 97;
+  width: 288px;
+  height: 300px;
+  pointer-events: none;
 }
 
 .lanyard {
   position: relative;
-  width: 264px;
-  min-height: 268px;
+  width: 288px;
+  min-height: 320px;
   pointer-events: auto;
   perspective: 900px;
 }
 
+.nav-lanyard-slot .lanyard {
+  pointer-events: auto;
+}
+
 .official-lanyard-viewport {
   position: absolute;
-  top: -18px;
+  top: -112px;
   left: 50%;
   width: 330px;
-  height: 260px;
-  overflow: hidden;
+  height: 300px;
+  overflow: visible;
   transform: translateX(-50%);
   pointer-events: auto;
+  z-index: 1;
 }
 
 .official-lanyard-viewport > div {
   width: 330px !important;
   height: 420px !important;
-  transform: translateY(-42px) scale(0.76);
+  transform: translateY(-42px) scale(0.72);
   transform-origin: top center;
 }
 
 .lanyard__card {
   position: absolute;
-  top: 116px;
+  top: 190px;
   right: 0;
   display: grid;
-  width: 264px;
-  min-height: 132px;
+  width: 288px;
+  min-height: 110px;
   gap: 8px;
   padding: 16px;
   border: 1px solid var(--ink);
@@ -141,18 +104,7 @@ a {
   box-shadow: 0 18px 40px rgba(17, 17, 17, 0.18);
   transform-style: preserve-3d;
   transition: transform 180ms ease;
-  z-index: 2;
-}
-
-.lanyard__label {
-  width: fit-content;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: var(--ink);
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 900;
-  text-transform: uppercase;
+  z-index: 3;
 }
 
 .lanyard__email {
@@ -179,17 +131,14 @@ a {
   z-index: -2;
   width: 100%;
   height: 100%;
-  background:
-    linear-gradient(120deg, rgba(17, 17, 17, 0.08), transparent 34%),
-    radial-gradient(circle at 72% 20%, rgba(17, 17, 17, 0.1), transparent 28%),
-    var(--paper);
+  background: var(--paper);
   overflow: hidden;
 }
 
 .reactbits-dither-stage {
   width: 100%;
   height: 100%;
-  opacity: 0.24;
+  opacity: 0.48;
   mix-blend-mode: normal;
 }
 

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import { forwardRef, useEffect, useRef } from "react";
+import { forwardRef, useCallback, useEffect, useRef } from "react";
 import { Canvas, ThreeEvent, useFrame, useThree } from "@react-three/fiber";
 import { EffectComposer, wrapEffect } from "@react-three/postprocessing";
 import { Effect } from "postprocessing";
@@ -256,11 +256,29 @@ function DitheredWaves({
     }
   });
 
+  const updateMousePosition = useCallback(
+    (clientX: number, clientY: number) => {
+      const rect = gl.domElement.getBoundingClientRect();
+      const dpr = gl.getPixelRatio();
+      mouseRef.current.set((clientX - rect.left) * dpr, (clientY - rect.top) * dpr);
+    },
+    [gl]
+  );
+
+  useEffect(() => {
+    if (!enableMouseInteraction) return;
+
+    const handleWindowPointerMove = (event: PointerEvent) => {
+      updateMousePosition(event.clientX, event.clientY);
+    };
+
+    window.addEventListener("pointermove", handleWindowPointerMove);
+    return () => window.removeEventListener("pointermove", handleWindowPointerMove);
+  }, [enableMouseInteraction, updateMousePosition]);
+
   const handlePointerMove = (e: ThreeEvent<PointerEvent>) => {
     if (!enableMouseInteraction) return;
-    const rect = gl.domElement.getBoundingClientRect();
-    const dpr = gl.getPixelRatio();
-    mouseRef.current.set((e.clientX - rect.left) * dpr, (e.clientY - rect.top) * dpr);
+    updateMousePosition(e.clientX, e.clientY);
   };
 
   return (

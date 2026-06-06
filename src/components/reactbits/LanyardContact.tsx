@@ -14,7 +14,7 @@ export function LanyardContact() {
   };
 
   return (
-    <div className="lanyard" aria-label="Contact card">
+    <div className="lanyard" aria-label="Contact information">
       {!isTest && (
         <div className="official-lanyard-viewport" aria-hidden="true">
           <Lanyard position={[0, 0, 20]} fov={24} gravity={[0, -36, 0]} />
@@ -26,7 +26,6 @@ export function LanyardContact() {
         onPointerLeave={() => setTilt({ x: 0, y: 0 })}
         style={{ transform: `rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)` }}
       >
-        <span className="lanyard__label">Contact</span>
         <a className="lanyard__email" href={`mailto:${profile.email}`}>
           {profile.email}
         </a>

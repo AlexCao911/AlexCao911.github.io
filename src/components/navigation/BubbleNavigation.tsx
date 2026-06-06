@@ -1,46 +1,52 @@
 import { profile } from "../../data/profile";
 import { handleInternalLink } from "../../router";
+import BubbleMenu from "../reactbits/BubbleMenu/BubbleMenu";
 import { LanyardContact } from "../reactbits/LanyardContact";
 
 type BubbleNavigationProps = {
   currentPath: string;
 };
 
-const navItems = [
-  { label: "Gallery", href: "/gallery" },
-  { label: "Notes", href: "/notes" },
+const bubbleItems = [
+  {
+    label: "gallery",
+    href: "/gallery",
+    ariaLabel: "Gallery",
+    rotation: -8,
+    hoverStyles: { bgColor: "#111111", textColor: "#ffffff" },
+  },
+  {
+    label: "notes",
+    href: "/notes",
+    ariaLabel: "Notes",
+    rotation: 8,
+    hoverStyles: { bgColor: "#111111", textColor: "#ffffff" },
+  },
 ];
 
-export function BubbleNavigation({ currentPath }: BubbleNavigationProps) {
+export function BubbleNavigation({ currentPath: _currentPath }: BubbleNavigationProps) {
   return (
-    <header className="site-nav" aria-label="Primary navigation">
-      <nav className="bubble-menu">
-        <a
-          className="bubble-logo"
-          href="/"
-          aria-label="Go to home"
-          onClick={(event) => handleInternalLink(event, "/")}
-        >
-          {profile.logo}
-        </a>
-        <div className="bubble-menu__items">
-          {navItems.map((item) => {
-            const isActive = currentPath === item.href || currentPath.startsWith(`${item.href}/`);
-
-            return (
-              <a
-                key={item.href}
-                className={isActive ? "bubble-link is-active" : "bubble-link"}
-                href={item.href}
-                onClick={(event) => handleInternalLink(event, item.href)}
-              >
-                {item.label}
-              </a>
-            );
-          })}
-        </div>
-      </nav>
-      <LanyardContact />
-    </header>
+    <>
+      <BubbleMenu
+        logo={
+          <a
+            className="bubble-home-link"
+            href="/"
+            aria-label="Go to home"
+            onClick={(event) => handleInternalLink(event, "/")}
+          >
+            {profile.logo}
+          </a>
+        }
+        items={bubbleItems}
+        menuBg="#ffffff"
+        menuContentColor="#111111"
+        menuAriaLabel="Toggle site menu"
+        useFixedPosition
+      />
+      <div className="nav-lanyard-slot">
+        <LanyardContact />
+      </div>
+    </>
   );
 }
