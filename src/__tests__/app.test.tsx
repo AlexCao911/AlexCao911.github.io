@@ -51,6 +51,20 @@ describe("personal website routing", () => {
     expect(screen.getByRole("heading", { name: /interface atlas/i })).toBeInTheDocument();
   });
 
+  test("renders gallery and notes as title-first showcase pages", () => {
+    window.history.pushState({}, "", "/gallery");
+
+    const { unmount } = render(<App />);
+
+    expect(document.querySelector(".gallery-hero .showcase-copy + .reactbits-showcase")).toBeInTheDocument();
+
+    unmount();
+    window.history.pushState({}, "", "/notes");
+    render(<App />);
+
+    expect(document.querySelector(".notes-hero .showcase-copy + .reactbits-showcase")).toBeInTheDocument();
+  });
+
   test("renders notes and a note detail page", () => {
     window.history.pushState({}, "", "/notes");
 

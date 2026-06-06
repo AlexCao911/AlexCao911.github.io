@@ -7,20 +7,22 @@ import type { CSSProperties } from "react";
 export function GalleryPage() {
   return (
     <main className="page gallery-page">
-      <section className="page-hero gallery-hero">
-        <MagnetLines
-          rows={9}
-          columns={9}
-          containerSize="min(420px, 76vw)"
-          lineColor="#111111"
-          lineWidth="4px"
-          lineHeight="26px"
-          baseAngle={-10}
-        />
-        <div>
+      <section className="showcase-hero gallery-hero">
+        <div className="showcase-copy">
           <p className="eyebrow">Selected work</p>
           <h1>Gallery</h1>
           <p>Frames for prototypes, systems, and interface studies.</p>
+        </div>
+        <div className="reactbits-showcase gallery-pattern" aria-hidden="true">
+          <MagnetLines
+            rows={9}
+            columns={9}
+            containerSize="min(520px, 82vw)"
+            lineColor="#111111"
+            lineWidth="4px"
+            lineHeight="26px"
+            baseAngle={-10}
+          />
         </div>
       </section>
       <section className="work-grid" aria-label="Selected works">

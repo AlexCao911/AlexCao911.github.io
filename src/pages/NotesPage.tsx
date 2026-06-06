@@ -6,12 +6,14 @@ import { handleInternalLink } from "../router";
 export function NotesPage() {
   return (
     <main className="page notes-page">
-      <section className="page-hero notes-hero">
-        <Cubes />
-        <div>
+      <section className="showcase-hero notes-hero">
+        <div className="showcase-copy">
           <p className="eyebrow">Writing log</p>
           <h1>Notes</h1>
           <p>Short essays on interfaces, motion, systems, and personal tools.</p>
+        </div>
+        <div className="reactbits-showcase notes-pattern" aria-hidden="true">
+          <Cubes />
         </div>
       </section>
       <section className="notes-list" aria-label="Notes">
