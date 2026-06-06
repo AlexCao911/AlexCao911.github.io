@@ -133,6 +133,14 @@ describe("personal website routing", () => {
     expect(document.querySelector(".dither-background .reactbits-dither-stage")).toBeInTheDocument();
   });
 
+  test("mounts the ReactBits FluidGlass cursor shell", () => {
+    window.history.pushState({}, "", "/notes");
+
+    render(<App />);
+
+    expect(document.querySelector(".fluid-glass-cursor")).toBeInTheDocument();
+  });
+
   test("uses a monochrome gallery accent palette", () => {
     window.history.pushState({}, "", "/gallery");
 

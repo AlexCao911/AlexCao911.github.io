@@ -1,4 +1,5 @@
 import { BubbleNavigation } from "./components/navigation/BubbleNavigation";
+import { FluidGlassCursor } from "./components/reactbits/FluidGlassCursor";
 import { GalleryDetailPage } from "./pages/GalleryDetailPage";
 import { GalleryPage } from "./pages/GalleryPage";
 import { HomePage } from "./pages/HomePage";
@@ -29,6 +30,7 @@ export default function App() {
     <>
       <BubbleNavigation currentPath={pathname} />
       {page}
+      <FluidGlassCursor />
     </>
   );
 }

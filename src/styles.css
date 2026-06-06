@@ -37,6 +37,29 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+.fluid-glass-cursor {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  width: 100vw;
+  height: 100svh;
+  pointer-events: none;
+}
+
+.fluid-glass-cursor canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html.fluid-glass-cursor-active,
+  html.fluid-glass-cursor-active * {
+    cursor: none !important;
+  }
+}
+
 .bubble-home-link {
   display: inline-flex;
   width: 100%;
