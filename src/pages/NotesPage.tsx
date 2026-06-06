@@ -8,9 +8,7 @@ export function NotesPage() {
     <main className="page notes-page">
       <section className="showcase-hero notes-hero">
         <div className="showcase-copy">
-          <p className="eyebrow">Writing log</p>
           <h1>Notes</h1>
-          <p>Short essays on interfaces, motion, systems, and personal tools.</p>
         </div>
         <div className="reactbits-showcase notes-pattern" aria-hidden="true">
           <Cubes />

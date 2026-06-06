@@ -78,7 +78,7 @@ a {
   height: 100svh;
   overflow: visible;
   transform: none;
-  pointer-events: auto;
+  pointer-events: none;
   z-index: 1;
 }
 
@@ -129,7 +129,12 @@ a {
 .home-hero {
   display: grid;
   gap: 18px;
-  padding-top: 7vh;
+  padding-top: 0;
+}
+
+.home-hero h1 {
+  font-size: clamp(72px, 14vw, 176px);
+  font-weight: 950;
 }
 
 .eyebrow {
@@ -185,9 +190,9 @@ h2 {
 
 .showcase-hero {
   display: grid;
-  gap: clamp(28px, 5vw, 64px);
+  gap: clamp(18px, 3vw, 40px);
   justify-items: center;
-  padding-top: clamp(32px, 5vw, 76px);
+  padding-top: 0;
   text-align: center;
 }
 
@@ -199,8 +204,8 @@ h2 {
 }
 
 .showcase-hero h1 {
-  font-size: clamp(72px, 12vw, 156px);
-  font-weight: 750;
+  font-size: clamp(86px, 14vw, 184px);
+  font-weight: 900;
 }
 
 .showcase-copy .eyebrow {
@@ -219,7 +224,7 @@ h2 {
 .reactbits-showcase {
   display: grid;
   width: min(1120px, 100%);
-  min-height: clamp(340px, 48vw, 580px);
+  min-height: clamp(300px, 42vw, 520px);
   place-items: center;
   border: 0;
   border-radius: 0;
@@ -229,11 +234,11 @@ h2 {
 }
 
 .gallery-pattern {
-  min-height: clamp(320px, 44vw, 520px);
+  min-height: clamp(280px, 38vw, 480px);
 }
 
 .notes-pattern {
-  min-height: clamp(360px, 48vw, 580px);
+  min-height: clamp(320px, 42vw, 520px);
 }
 
 .work-grid,
@@ -257,6 +262,7 @@ h2 {
   background: rgba(255, 255, 255, 0.78);
   box-shadow: 0 24px 70px rgba(17, 17, 17, 0.08);
   backdrop-filter: blur(18px);
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .note-card {
@@ -275,13 +281,14 @@ h2 {
 
 .work-card h2,
 .note-card h2 {
-  font-size: clamp(28px, 3vw, 44px);
+  font-size: clamp(27px, 2.7vw, 40px);
+  font-weight: 800;
 }
 
 .work-card p,
 .note-card p {
   color: #303232;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.55;
 }
 
@@ -295,6 +302,7 @@ h2 {
 .note-card a,
 .back-link {
   width: fit-content;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-weight: 900;
   text-decoration-thickness: 2px;
   text-underline-offset: 5px;

@@ -9,9 +9,7 @@ export function GalleryPage() {
     <main className="page gallery-page">
       <section className="showcase-hero gallery-hero">
         <div className="showcase-copy">
-          <p className="eyebrow">Selected work</p>
           <h1>Gallery</h1>
-          <p>Frames for prototypes, systems, and interface studies.</p>
         </div>
         <div className="reactbits-showcase gallery-pattern" aria-hidden="true">
           <MagnetLines

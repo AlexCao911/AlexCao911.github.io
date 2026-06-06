@@ -1,3 +1,5 @@
+import { field, parseMarkdownDocument } from "./markdown";
+
 export type Work = {
   slug: string;
   title: string;
@@ -5,38 +7,33 @@ export type Work = {
   type: string;
   summary: string;
   detail: string;
+  body: string[];
   accent: string;
+  order: number;
 };
 
-export const works: Work[] = [
-  {
-    slug: "interface-atlas",
-    title: "Interface Atlas",
-    year: "2026",
-    type: "Product System",
-    summary: "A compact visual system for collecting reusable interaction patterns.",
-    detail:
-      "Interface Atlas organizes product flows into reusable interaction maps, with emphasis on scanning, comparison, and fast prototyping.",
-    accent: "#111111",
-  },
-  {
-    slug: "motion-notes",
-    title: "Motion Notes",
-    year: "2025",
-    type: "Prototype",
-    summary: "A note-taking surface where motion carries hierarchy instead of decoration.",
-    detail:
-      "Motion Notes explores subtle animated affordances for writing, clustering, and revisiting personal knowledge.",
-    accent: "#111111",
-  },
-  {
-    slug: "local-ai-watch",
-    title: "Local AI Watch",
-    year: "2025",
-    type: "Research Tool",
-    summary: "A local-first dashboard for model experiments and evaluation traces.",
-    detail:
-      "Local AI Watch brings benchmark runs, prompt history, and small-device constraints into a single readable workspace.",
-    accent: "#111111",
-  },
-];
+const galleryModules = import.meta.glob<string>("../content/gallery/*.md", {
+  eager: true,
+  import: "default",
+  query: "?raw",
+});
+
+export const works: Work[] = Object.entries(galleryModules)
+  .map(([path, raw]) => {
+    const document = parseMarkdownDocument(raw);
+    const fallbackSlug = path.split("/").pop()?.replace(/\.md$/, "") ?? "work";
+    const summary = field(document.fields, "summary");
+
+    return {
+      slug: field(document.fields, "slug", fallbackSlug),
+      title: field(document.fields, "title", fallbackSlug),
+      year: field(document.fields, "year"),
+      type: field(document.fields, "type"),
+      summary,
+      detail: document.body[0] ?? summary,
+      body: document.body,
+      accent: field(document.fields, "accent", "#111111"),
+      order: Number(field(document.fields, "order", "999")),
+    };
+  })
+  .sort((a, b) => a.order - b.order);

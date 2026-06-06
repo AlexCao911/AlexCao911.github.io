@@ -1,19 +1,29 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, test } from "vitest";
 import App from "../App";
+import { FOOTER_QUOTE } from "../components/SiteFooter";
+import { works } from "../data/gallery";
+import { notes } from "../data/notes";
 
 afterEach(() => {
   cleanup();
 });
 
 describe("personal website routing", () => {
-  test("renders the home introduction and contact email", () => {
+  test("renders the home name without extra introduction text", () => {
     window.history.pushState({}, "", "/");
 
     render(<App />);
 
     expect(screen.getByRole("heading", { name: /alexander cou/i })).toBeInTheDocument();
+    expect(screen.queryByText(/personal site/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/designer-developer/i)).not.toBeInTheDocument();
     expect(screen.queryByRole("link", { name: /hello@alexandercou\.com/i })).not.toBeInTheDocument();
+  });
+
+  test("loads gallery and notes content from markdown collections", () => {
+    expect(works.map((work) => work.slug)).toEqual(["interface-atlas", "motion-notes", "local-ai-watch"]);
+    expect(notes.map((note) => note.slug)).toEqual(["designing-with-motion", "personal-systems", "small-interfaces"]);
   });
 
   test("uses the official ReactBits BubbleMenu navigation shell", () => {
@@ -87,9 +97,7 @@ describe("personal website routing", () => {
     render(<App />);
 
     const scrambledParagraph = document.querySelector(".page-footer .scrambled-text p");
-    expect(scrambledParagraph).toHaveTextContent(
-      "the people who are crazy enough to think they can change the world, are the ones who do"
-    );
+    expect(scrambledParagraph).toHaveTextContent(FOOTER_QUOTE.trim());
   });
 
   test("renders footers as full-bleed sections", () => {

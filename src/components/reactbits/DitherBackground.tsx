@@ -6,7 +6,7 @@ export function DitherBackground() {
   return (
     <div className="dither-background" aria-hidden="true">
       <div className="reactbits-dither-stage">
-        {!isTest && <Dither />}
+        {!isTest && <Dither mouseRadius={0.34} />}
       </div>
     </div>
   );

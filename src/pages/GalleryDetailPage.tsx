@@ -25,7 +25,9 @@ export function GalleryDetailPage({ slug }: GalleryDetailPageProps) {
       <p className="eyebrow">{work.type}</p>
       <h1>{work.title}</h1>
       <p className="detail-lede">{work.summary}</p>
-      <p>{work.detail}</p>
+      {work.body.map((paragraph) => (
+        <p key={paragraph}>{paragraph}</p>
+      ))}
     </main>
   );
 }
