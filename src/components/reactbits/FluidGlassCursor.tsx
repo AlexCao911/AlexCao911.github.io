@@ -42,11 +42,24 @@ export function FluidGlassCursor({ lensProps = {} }: FluidGlassCursorProps) {
     return () => document.documentElement.classList.remove("fluid-glass-cursor-active");
   }, [enabled]);
 
+  useEffect(() => {
+    if (!enabled || isTest || typeof window === "undefined") return;
+
+    const setCursorVars = (event: PointerEvent) => {
+      document.documentElement.style.setProperty("--fluid-cursor-x", `${event.clientX}px`);
+      document.documentElement.style.setProperty("--fluid-cursor-y", `${event.clientY}px`);
+    };
+
+    window.addEventListener("pointermove", setCursorVars, { passive: true });
+    return () => window.removeEventListener("pointermove", setCursorVars);
+  }, [enabled, isTest]);
+
   if (isTest) return <div className="fluid-glass-cursor" aria-hidden="true" />;
   if (!enabled) return null;
 
   return (
     <div className="fluid-glass-cursor" aria-hidden="true">
+      <div className="fluid-glass-cursor-surface" />
       <Canvas
         camera={{ position: [0, 0, 20], fov: 15 }}
         dpr={[1, 2]}
@@ -57,14 +70,16 @@ export function FluidGlassCursor({ lensProps = {} }: FluidGlassCursorProps) {
       >
         <FluidGlassLens
           lensProps={{
-            scale: 0.16,
-            ior: 1.15,
-            thickness: 2,
+            scale: 0.085,
+            ior: 1.2,
+            thickness: 0.9,
             anisotropy: 0.01,
-            chromaticAberration: 0.05,
+            chromaticAberration: 0.08,
             transmission: 1,
             roughness: 0,
             color: "#ffffff",
+            attenuationColor: "#ffffff",
+            attenuationDistance: 0.12,
             ...lensProps,
           }}
         />
@@ -75,11 +90,7 @@ export function FluidGlassCursor({ lensProps = {} }: FluidGlassCursorProps) {
 }
 
 function FluidGlassLens({ lensProps = {} }: { lensProps?: ModeProps }) {
-  return (
-    <Lens modeProps={lensProps}>
-      <CursorTexture />
-    </Lens>
-  );
+  return <Lens modeProps={lensProps} />;
 }
 
 const ModeWrapper = memo(function ModeWrapper({
@@ -146,7 +157,7 @@ const ModeWrapper = memo(function ModeWrapper({
           />
         </mesh>
         <mesh rotation-x={Math.PI / 2} geometry={(nodes[geometryKey] as THREE.Mesh)?.geometry} scale={1.03}>
-          <meshBasicMaterial color="#ffffff" transparent opacity={0.18} depthWrite={false} />
+          <meshBasicMaterial color="#ffffff" transparent opacity={0.055} depthWrite={false} />
         </mesh>
       </group>
     </>
@@ -155,26 +166,6 @@ const ModeWrapper = memo(function ModeWrapper({
 
 function Lens({ modeProps, ...props }: { modeProps?: ModeProps } & GroupProps) {
   return <ModeWrapper glb="/assets/3d/lens.glb" geometryKey="Cylinder" followPointer modeProps={modeProps} {...props} />;
-}
-
-function CursorTexture() {
-  return (
-    <group position={[0, 0, 10]}>
-      <mesh position={[0, 0, -2]} scale={[8, 8, 1]}>
-        <planeGeometry args={[1, 1, 1, 1]} />
-        <meshBasicMaterial color="#f7f7f4" />
-      </mesh>
-      {Array.from({ length: 12 }).map((_, index) => {
-        const offset = index - 5.5;
-        return (
-          <mesh key={`line-${index}`} position={[offset * 0.42, 0, -1]} scale={[0.018, 8, 1]}>
-            <planeGeometry args={[1, 1, 1, 1]} />
-            <meshBasicMaterial color={index % 2 === 0 ? "#111111" : "#d8d8d2"} />
-          </mesh>
-        );
-      })}
-    </group>
-  );
 }
 
 useGLTF.preload("/assets/3d/lens.glb");
