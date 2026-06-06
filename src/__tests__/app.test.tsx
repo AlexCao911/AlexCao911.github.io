@@ -61,4 +61,12 @@ describe("personal website routing", () => {
 
     expect(document.querySelector(".notes-hero .cube .cube-face")).toBeInTheDocument();
   });
+
+  test("mounts the ReactBits Dither stage on the home page", () => {
+    window.history.pushState({}, "", "/");
+
+    render(<App />);
+
+    expect(document.querySelector(".dither-background .reactbits-dither-stage")).toBeInTheDocument();
+  });
 });
