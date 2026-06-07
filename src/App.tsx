@@ -1,5 +1,6 @@
 import { BubbleNavigation } from "./components/navigation/BubbleNavigation";
 import { FluidGlassCursor } from "./components/reactbits/FluidGlassCursor";
+import { RobotAnimation } from "./components/RobotAnimation";
 import { GalleryDetailPage } from "./pages/GalleryDetailPage";
 import { GalleryPage } from "./pages/GalleryPage";
 import { HomePage } from "./pages/HomePage";
@@ -29,6 +30,7 @@ export default function App() {
   return (
     <>
       <BubbleNavigation currentPath={pathname} />
+      <RobotAnimation className="nav-robot" />
       {page}
       <FluidGlassCursor />
     </>

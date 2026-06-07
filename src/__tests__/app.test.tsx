@@ -180,6 +180,20 @@ title: Demo embed
     expect(document.querySelector(".fluid-glass-cursor")).toBeInTheDocument();
   });
 
+  test("mounts one standalone CSS robot without the Rive strip", () => {
+    window.history.pushState({}, "", "/gallery");
+
+    render(<App />);
+
+    const robot = document.querySelector(".nav-robot.robot-animation");
+
+    expect(document.querySelectorAll(".robot-animation")).toHaveLength(1);
+    expect(document.querySelector(".nav-robot-slot")).not.toBeInTheDocument();
+    expect(robot).toHaveAttribute("data-robot-kind", "css");
+    expect(robot?.querySelector(".robot__body")).toBeInTheDocument();
+    expect(robot?.querySelector("canvas")).not.toBeInTheDocument();
+  });
+
   test("uses a monochrome gallery accent palette", () => {
     window.history.pushState({}, "", "/gallery");
 
