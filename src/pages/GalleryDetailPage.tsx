@@ -1,3 +1,4 @@
+import { ContentBlocks } from "../components/ContentBlocks";
 import { works } from "../data/gallery";
 import { handleInternalLink } from "../router";
 
@@ -25,9 +26,7 @@ export function GalleryDetailPage({ slug }: GalleryDetailPageProps) {
       <p className="eyebrow">{work.type}</p>
       <h1>{work.title}</h1>
       <p className="detail-lede">{work.summary}</p>
-      {work.body.map((paragraph) => (
-        <p key={paragraph}>{paragraph}</p>
-      ))}
+      <ContentBlocks blocks={work.blocks} />
     </main>
   );
 }

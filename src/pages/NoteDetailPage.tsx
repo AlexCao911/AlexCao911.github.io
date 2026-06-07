@@ -1,3 +1,4 @@
+import { ContentBlocks } from "../components/ContentBlocks";
 import { notes } from "../data/notes";
 import { handleInternalLink } from "../router";
 
@@ -25,9 +26,7 @@ export function NoteDetailPage({ slug }: NoteDetailPageProps) {
       <time>{note.date}</time>
       <h1>{note.title}</h1>
       <p className="detail-lede">{note.excerpt}</p>
-      {note.body.map((paragraph) => (
-        <p key={paragraph}>{paragraph}</p>
-      ))}
+      <ContentBlocks blocks={note.blocks} />
     </main>
   );
 }

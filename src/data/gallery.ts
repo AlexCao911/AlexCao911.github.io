@@ -1,4 +1,4 @@
-import { field, parseMarkdownDocument } from "./markdown";
+import { field, parseMarkdownDocument, type MarkdownBlock } from "./markdown";
 
 export type Work = {
   slug: string;
@@ -7,6 +7,7 @@ export type Work = {
   type: string;
   summary: string;
   detail: string;
+  blocks: MarkdownBlock[];
   body: string[];
   accent: string;
   order: number;
@@ -31,6 +32,7 @@ export const works: Work[] = Object.entries(galleryModules)
       type: field(document.fields, "type"),
       summary,
       detail: document.body[0] ?? summary,
+      blocks: document.blocks,
       body: document.body,
       accent: field(document.fields, "accent", "#111111"),
       order: Number(field(document.fields, "order", "999")),

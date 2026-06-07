@@ -1,0 +1,37 @@
+.content-media {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  margin: 18px 0 10px;
+}
+
+.content-media img,
+.content-media video,
+.content-media iframe {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 20px 60px rgba(17, 17, 17, 0.09);
+}
+
+.content-media img,
+.content-media video {
+  height: auto;
+  max-height: min(72vh, 760px);
+  object-fit: contain;
+}
+
+.content-media iframe {
+  aspect-ratio: 16 / 9;
+  min-height: 320px;
+}
+
+.content-media figcaption {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.45;
+}

@@ -1,10 +1,11 @@
-import { field, parseMarkdownDocument } from "./markdown";
+import { field, parseMarkdownDocument, type MarkdownBlock } from "./markdown";
 
 export type Note = {
   slug: string;
   title: string;
   date: string;
   excerpt: string;
+  blocks: MarkdownBlock[];
   body: string[];
   order: number;
 };
@@ -25,6 +26,7 @@ export const notes: Note[] = Object.entries(noteModules)
       title: field(document.fields, "title", fallbackSlug),
       date: field(document.fields, "date"),
       excerpt: field(document.fields, "excerpt"),
+      blocks: document.blocks,
       body: document.body,
       order: Number(field(document.fields, "order", "999")),
     };
