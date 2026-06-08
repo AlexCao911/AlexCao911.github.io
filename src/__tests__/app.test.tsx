@@ -131,13 +131,19 @@ title: Demo embed
     expect(document.querySelector(".notes-hero .showcase-copy + .reactbits-showcase")).toBeInTheDocument();
   });
 
-  test("uses ReactBits MetaBalls on the gallery hero", () => {
+  test("uses the black cat Rive animation on the gallery hero", () => {
     window.history.pushState({}, "", "/gallery");
 
     render(<App />);
 
-    expect(document.querySelector(".gallery-hero .meta-balls")).toBeInTheDocument();
-    expect(document.querySelector(".gallery-hero [data-reactbits-component='meta-balls']")).toBeInTheDocument();
+    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toBeInTheDocument();
+    expect(document.querySelector(".gallery-hero .gallery-rive-panel")).toBeInTheDocument();
+    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
+      "data-rive-src",
+      "/assets/rive/black-cat.riv"
+    );
+    expect(document.querySelector(".gallery-hero .cube--tetrahedron")).not.toBeInTheDocument();
+    expect(document.querySelector(".gallery-hero .meta-balls")).not.toBeInTheDocument();
   });
 
   test("renders notes and a note detail page", () => {

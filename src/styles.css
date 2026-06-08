@@ -285,6 +285,7 @@ h2 {
 
 .gallery-pattern {
   min-height: clamp(280px, 38vw, 480px);
+  background: transparent;
 }
 
 .notes-pattern {

@@ -1,0 +1,33 @@
+.gallery-rive-showcase {
+  position: relative;
+  display: grid;
+  width: min(580px, 82vw);
+  place-items: center;
+}
+
+.gallery-rive-panel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: transparent;
+}
+
+.gallery-rive-canvas,
+.gallery-rive-fallback {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-rive-fallback {
+  background: #8c5cff;
+}
+
+@media (max-width: 520px) {
+  .gallery-rive-showcase {
+    width: min(420px, 88vw);
+  }
+}

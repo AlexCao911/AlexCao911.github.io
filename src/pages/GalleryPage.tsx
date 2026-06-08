@@ -1,4 +1,4 @@
-import { MetaBalls } from "../components/reactbits/MetaBalls";
+import { GalleryRiveShowcase } from "../components/GalleryRiveShowcase";
 import { SiteFooter } from "../components/SiteFooter";
 import { works } from "../data/gallery";
 import { handleInternalLink } from "../router";
@@ -12,15 +12,7 @@ export function GalleryPage() {
           <h1>Gallery</h1>
         </div>
         <div className="reactbits-showcase gallery-pattern" aria-hidden="true">
-          <MetaBalls
-            ballCount={16}
-            animationSize={28}
-            clumpFactor={1.05}
-            color="#111111"
-            cursorBallColor="#111111"
-            enableMouseInteraction
-            speed={1}
-          />
+          <GalleryRiveShowcase />
         </div>
       </section>
       <section className="work-grid" aria-label="Selected works">
