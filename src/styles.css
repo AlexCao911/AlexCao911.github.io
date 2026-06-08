@@ -46,33 +46,38 @@ a {
   pointer-events: none;
 }
 
-.fluid-glass-cursor canvas {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-  opacity: 0.72;
-  pointer-events: none;
-  mix-blend-mode: screen;
-}
-
 .fluid-glass-cursor-surface {
   position: fixed;
   left: var(--fluid-cursor-x, 50vw);
   top: var(--fluid-cursor-y, 50vh);
-  width: 62px;
-  height: 62px;
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.18) 18%, rgba(255, 255, 255, 0.06) 46%, rgba(255, 255, 255, 0.02) 72%),
-    rgba(255, 255, 255, 0.08);
-  box-shadow:
-    inset 0 0 16px rgba(255, 255, 255, 0.58),
-    inset 0 0 2px rgba(0, 0, 0, 0.18),
-    0 10px 24px rgba(17, 17, 17, 0.1);
-  backdrop-filter: blur(5px) contrast(1.18) saturate(1.08);
+  overflow: hidden;
+  pointer-events: none;
   transform: translate3d(-50%, -50%, 0);
-  will-change: left, top;
+  transition: opacity 180ms ease;
+  will-change: left, top, backdrop-filter;
+}
+
+.fluid-glass-cursor-filter {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fluid-glass-cursor-highlight {
+  position: absolute;
+  inset: 4px 6px auto 7px;
+  height: 42%;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 24% 28%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.4) 18%, rgba(255, 255, 255, 0) 44%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0));
+  mix-blend-mode: screen;
+  opacity: 0.76;
+  pointer-events: none;
 }
 
 @media (hover: hover) and (pointer: fine) {

@@ -31,17 +31,17 @@ export interface CubesProps {
 export const Cubes: React.FC<CubesProps> = ({
   gridSize = 10,
   cubeSize,
-  maxAngle = 45,
+  maxAngle = 150,
   radius = 3,
   easing = "power3.out",
   duration = { enter: 0.3, leave: 0.6 },
   cellGap,
-  borderStyle = "1px solid #fff",
+  borderStyle = "1px solid #f7f7f4",
   faceColor = "#120F17",
   shadow = false,
   autoAnimate = true,
   rippleOnClick = true,
-  rippleColor = "#fff",
+  rippleColor = "#f7f7f4",
   rippleSpeed = 2,
 }) => {
   const sceneRef = useRef<HTMLDivElement | null>(null);

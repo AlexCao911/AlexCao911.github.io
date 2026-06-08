@@ -17,9 +17,9 @@ export function GalleryPage() {
             columns={9}
             containerSize="min(520px, 82vw)"
             lineColor="#111111"
-            lineWidth="4px"
-            lineHeight="26px"
-            baseAngle={-10}
+            lineWidth="6px"
+            lineHeight="30px"
+            baseAngle={50}
           />
         </div>
       </section>

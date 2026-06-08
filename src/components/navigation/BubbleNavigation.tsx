@@ -1,4 +1,3 @@
-import { profile } from "../../data/profile";
 import { handleInternalLink } from "../../router";
 import BubbleMenu from "../reactbits/BubbleMenu/BubbleMenu";
 import { LanyardContact } from "../reactbits/LanyardContact";
@@ -9,14 +8,14 @@ type BubbleNavigationProps = {
 
 const bubbleItems = [
   {
-    label: "gallery",
+    label: "Gallery",
     href: "/gallery",
     ariaLabel: "Gallery",
     rotation: -8,
     hoverStyles: { bgColor: "#111111", textColor: "#ffffff" },
   },
   {
-    label: "notes",
+    label: "Notes",
     href: "/notes",
     ariaLabel: "Notes",
     rotation: 8,
@@ -35,7 +34,7 @@ export function BubbleNavigation({ currentPath: _currentPath }: BubbleNavigation
             aria-label="Go to home"
             onClick={(event) => handleInternalLink(event, "/")}
           >
-            {profile.logo}
+            <img className="bubble-home-logo bubble-logo" src="/assets/brand/logo.png" alt="" aria-hidden="true" />
           </a>
         }
         items={bubbleItems}

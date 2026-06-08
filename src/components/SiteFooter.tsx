@@ -1,7 +1,7 @@
 import { ScrambledText } from "./reactbits/ScrambledText";
 
 export const FOOTER_QUOTE =
-  "the people who are crazy enough to think they can change the world, are the ones who do";
+  "The people who are crazy enough to think they can change the world, are the ones who do. - Steve Jobs ";
 
 export function SiteFooter() {
   return (
