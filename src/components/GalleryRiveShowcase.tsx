@@ -1,41 +1,122 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import "./GalleryRiveShowcase.css";
 
-const GalleryRiveCanvas = lazy(() => import("./GalleryRiveCanvas"));
+let galleryRiveCanvasPromise: Promise<{ default: typeof import("./GalleryRiveCanvas").default }> | null = null;
+let blackCatRiveBufferPromise: Promise<ArrayBuffer> | null = null;
+
 const BLACK_CAT_RIVE_SRC = "/assets/rive/black-cat.riv";
 const BLACK_CAT_RIVE_ARTBOARD = "WCT 01";
 const BLACK_CAT_RIVE_STATE_MACHINE = "BLACK CATW";
 const BLACK_CAT_RIVE_HOVER_INPUT = "Hover";
+const PRELOAD_LINK_ID = "black-cat-rive-preload";
+
+function loadGalleryRiveCanvas() {
+  galleryRiveCanvasPromise ??= import("./GalleryRiveCanvas");
+  return galleryRiveCanvasPromise;
+}
+
+const GalleryRiveCanvas = lazy(loadGalleryRiveCanvas);
+
+function ensureRivePreloadLink() {
+  if (typeof document === "undefined" || document.getElementById(PRELOAD_LINK_ID)) return;
+
+  const link = document.createElement("link");
+  link.id = PRELOAD_LINK_ID;
+  link.rel = "preload";
+  link.as = "fetch";
+  link.href = BLACK_CAT_RIVE_SRC;
+  link.crossOrigin = "anonymous";
+  document.head.appendChild(link);
+}
+
+function loadBlackCatRiveBuffer() {
+  blackCatRiveBufferPromise ??= fetch(BLACK_CAT_RIVE_SRC, { cache: "force-cache" }).then((response) => {
+    if (!response.ok) {
+      throw new Error(`Unable to load black cat Rive asset: ${response.status}`);
+    }
+
+    return response.arrayBuffer();
+  });
+
+  return blackCatRiveBufferPromise;
+}
+
+function queueRiveWarmup(task: () => void) {
+  const handle = window.setTimeout(task, 80);
+  return () => window.clearTimeout(handle);
+}
 
 function isTestEnvironment() {
   return typeof navigator !== "undefined" && navigator.userAgent.toLowerCase().includes("jsdom");
 }
 
+function GalleryRiveFallback() {
+  return <div className="gallery-rive-fallback" />;
+}
+
 export function GalleryRiveShowcase() {
   const shouldRenderRive = !isTestEnvironment();
+  const [riveBuffer, setRiveBuffer] = useState<ArrayBuffer | null>(null);
+  const [useSrcFallback, setUseSrcFallback] = useState(false);
+
+  useEffect(() => {
+    if (!shouldRenderRive) return;
+
+    let isMounted = true;
+
+    ensureRivePreloadLink();
+
+    const cancelWarmup = queueRiveWarmup(() => {
+      void loadGalleryRiveCanvas();
+      void loadBlackCatRiveBuffer()
+        .then((buffer) => {
+          if (isMounted) {
+            setRiveBuffer(buffer);
+          }
+        })
+        .catch(() => {
+          if (isMounted) {
+            setUseSrcFallback(true);
+          }
+        });
+    });
+
+    return () => {
+      isMounted = false;
+      cancelWarmup();
+    };
+  }, [shouldRenderRive]);
+
+  const canRenderCanvas = shouldRenderRive && (riveBuffer || useSrcFallback);
+  const loadMode = shouldRenderRive ? (riveBuffer ? "buffer" : useSrcFallback ? "src-fallback" : "loading") : "test-fallback";
 
   return (
     <div
       className="gallery-rive-showcase"
       data-rive-artboard={BLACK_CAT_RIVE_ARTBOARD}
+      data-rive-glass-frame="true"
       data-rive-hover-input={BLACK_CAT_RIVE_HOVER_INPUT}
+      data-rive-load-mode={loadMode}
       data-rive-src={BLACK_CAT_RIVE_SRC}
       data-rive-state-machine={BLACK_CAT_RIVE_STATE_MACHINE}
       data-rive-touch-interaction="true"
     >
       <div className="gallery-rive-panel">
-        {shouldRenderRive ? (
-          <Suspense fallback={<div className="gallery-rive-fallback" />}>
-            <GalleryRiveCanvas
-              artboard={BLACK_CAT_RIVE_ARTBOARD}
-              hoverInput={BLACK_CAT_RIVE_HOVER_INPUT}
-              src={BLACK_CAT_RIVE_SRC}
-              stateMachine={BLACK_CAT_RIVE_STATE_MACHINE}
-            />
-          </Suspense>
-        ) : (
-          <div className="gallery-rive-fallback" />
-        )}
+        <div className="gallery-rive-viewport">
+          {canRenderCanvas ? (
+            <Suspense fallback={<GalleryRiveFallback />}>
+              <GalleryRiveCanvas
+                artboard={BLACK_CAT_RIVE_ARTBOARD}
+                buffer={riveBuffer ?? undefined}
+                hoverInput={BLACK_CAT_RIVE_HOVER_INPUT}
+                src={useSrcFallback ? BLACK_CAT_RIVE_SRC : undefined}
+                stateMachine={BLACK_CAT_RIVE_STATE_MACHINE}
+              />
+            </Suspense>
+          ) : (
+            <GalleryRiveFallback />
+          )}
+        </div>
       </div>
     </div>
   );

@@ -4,15 +4,17 @@ import { Alignment, Fit, Layout, useRive, useStateMachineInput } from "@rive-app
 
 type GalleryRiveCanvasProps = {
   artboard: string;
+  buffer?: ArrayBuffer;
   hoverInput: string;
-  src: string;
+  src?: string;
   stateMachine: string;
 };
 
-export default function GalleryRiveCanvas({ artboard, hoverInput, src, stateMachine }: GalleryRiveCanvasProps) {
+export default function GalleryRiveCanvas({ artboard, buffer, hoverInput, src, stateMachine }: GalleryRiveCanvasProps) {
   const releaseTimerRef = useRef<number | null>(null);
   const { rive, RiveComponent } = useRive({
-    src,
+    buffer,
+    src: buffer ? undefined : src,
     artboard,
     autoplay: true,
     stateMachines: stateMachine,

@@ -147,6 +147,10 @@ title: Demo embed
       "WCT 01"
     );
     expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
+      "data-rive-glass-frame",
+      "true"
+    );
+    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
       "data-rive-state-machine",
       "BLACK CATW"
     );
@@ -158,6 +162,11 @@ title: Demo embed
       "data-rive-touch-interaction",
       "true"
     );
+    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
+      "data-rive-load-mode",
+      "test-fallback"
+    );
+    expect(document.querySelector(".gallery-hero .gallery-rive-viewport")).toBeInTheDocument();
     expect(document.querySelector(".gallery-hero .cube--tetrahedron")).not.toBeInTheDocument();
     expect(document.querySelector(".gallery-hero .meta-balls")).not.toBeInTheDocument();
   });
