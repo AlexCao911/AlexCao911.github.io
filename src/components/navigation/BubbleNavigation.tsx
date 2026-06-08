@@ -23,6 +23,8 @@ const bubbleItems = [
   },
 ];
 
+const SHOW_LANYARD_CARD = false;
+
 export function BubbleNavigation({ currentPath: _currentPath }: BubbleNavigationProps) {
   return (
     <>
@@ -43,9 +45,11 @@ export function BubbleNavigation({ currentPath: _currentPath }: BubbleNavigation
         menuAriaLabel="Toggle site menu"
         useFixedPosition
       />
-      <div className="nav-lanyard-slot">
-        <LanyardContact />
-      </div>
+      {SHOW_LANYARD_CARD ? (
+        <div className="nav-lanyard-slot">
+          <LanyardContact />
+        </div>
+      ) : null}
     </>
   );
 }

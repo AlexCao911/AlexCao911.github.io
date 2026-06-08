@@ -91,12 +91,13 @@ title: Demo embed
     expect(getComputedStyle(notesLink).fontWeight).toBe("700");
   });
 
-  test("keeps one decorative lanyard without contact text", () => {
+  test("keeps the decorative lanyard card hidden for now", () => {
     window.history.pushState({}, "", "/");
 
     render(<App />);
 
-    expect(document.querySelectorAll(".lanyard")).toHaveLength(1);
+    expect(document.querySelectorAll(".nav-lanyard-slot")).toHaveLength(0);
+    expect(document.querySelectorAll(".lanyard")).toHaveLength(0);
     expect(document.querySelectorAll(".lanyard__info")).toHaveLength(0);
     expect(document.querySelectorAll(".lanyard__card")).toHaveLength(0);
     expect(document.querySelectorAll(".lanyard__label")).toHaveLength(0);
