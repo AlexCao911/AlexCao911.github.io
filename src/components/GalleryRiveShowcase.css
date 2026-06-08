@@ -2,6 +2,7 @@
   position: relative;
   display: grid;
   width: min(620px, 84vw);
+  contain: layout paint style;
   place-items: center;
 }
 
@@ -20,6 +21,7 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.78),
     inset 0 -1px 0 rgba(17, 17, 17, 0.08);
   backdrop-filter: blur(22px) saturate(145%);
+  transform: translateZ(0);
 }
 
 .gallery-rive-viewport {
@@ -49,6 +51,15 @@
   background:
     radial-gradient(circle at 50% 46%, rgba(192, 235, 245, 0.62), rgba(192, 235, 245, 0) 24%),
     linear-gradient(135deg, #4818ee, #8b5cff 48%, #4e20d8);
+}
+
+.gallery-rive-poster {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .gallery-rive-fallback::after {

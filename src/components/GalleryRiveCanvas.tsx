@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import type { PointerEvent as ReactPointerEvent, TouchEvent as ReactTouchEvent } from "react";
-import { Alignment, Fit, Layout, useRive, useStateMachineInput } from "@rive-app/react-canvas";
+import { Alignment, Fit, Layout, useRive, useStateMachineInput } from "@rive-app/react-canvas-lite";
 
 type GalleryRiveCanvasProps = {
   artboard: string;

@@ -167,7 +167,23 @@ title: Demo embed
       "data-rive-load-mode",
       "test-fallback"
     );
+    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
+      "data-rive-load-strategy",
+      "poster-buffer"
+    );
+    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
+      "data-rive-poster",
+      "/assets/rive/black-cat-poster.png"
+    );
+    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
+      "data-rive-runtime",
+      "lite"
+    );
     expect(document.querySelector(".gallery-hero .gallery-rive-viewport")).toBeInTheDocument();
+    expect(document.querySelector(".gallery-hero .gallery-rive-poster")).toHaveAttribute(
+      "src",
+      "/assets/rive/black-cat-poster.png"
+    );
     expect(document.querySelector(".gallery-hero .cube--tetrahedron")).not.toBeInTheDocument();
     expect(document.querySelector(".gallery-hero .meta-balls")).not.toBeInTheDocument();
   });

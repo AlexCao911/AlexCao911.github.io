@@ -1,4 +1,6 @@
-import Dither from "./Dither";
+import { lazy, Suspense } from "react";
+
+const Dither = lazy(() => import("./Dither"));
 
 export function DitherBackground() {
   const isTest = import.meta.env.MODE === "test";
@@ -6,7 +8,11 @@ export function DitherBackground() {
   return (
     <div className="dither-background" aria-hidden="true">
       <div className="reactbits-dither-stage">
-        {!isTest && <Dither mouseRadius={0.34} />}
+        {!isTest ? (
+          <Suspense fallback={null}>
+            <Dither mouseRadius={0.34} />
+          </Suspense>
+        ) : null}
       </div>
     </div>
   );

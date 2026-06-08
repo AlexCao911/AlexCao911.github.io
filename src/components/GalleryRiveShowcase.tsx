@@ -5,6 +5,7 @@ let galleryRiveCanvasPromise: Promise<{ default: typeof import("./GalleryRiveCan
 let blackCatRiveBufferPromise: Promise<ArrayBuffer> | null = null;
 
 const BLACK_CAT_RIVE_SRC = "/assets/rive/black-cat.riv";
+const BLACK_CAT_RIVE_POSTER_SRC = "/assets/rive/black-cat-poster.png";
 const BLACK_CAT_RIVE_ARTBOARD = "WCT 01";
 const BLACK_CAT_RIVE_STATE_MACHINE = "BLACK CATW";
 const BLACK_CAT_RIVE_HOVER_INPUT = "Hover";
@@ -26,6 +27,7 @@ function ensureRivePreloadLink() {
   link.as = "fetch";
   link.href = BLACK_CAT_RIVE_SRC;
   link.crossOrigin = "anonymous";
+  link.setAttribute("fetchpriority", "high");
   document.head.appendChild(link);
 }
 
@@ -41,17 +43,23 @@ function loadBlackCatRiveBuffer() {
   return blackCatRiveBufferPromise;
 }
 
-function queueRiveWarmup(task: () => void) {
-  const handle = window.setTimeout(task, 80);
-  return () => window.clearTimeout(handle);
-}
-
 function isTestEnvironment() {
   return typeof navigator !== "undefined" && navigator.userAgent.toLowerCase().includes("jsdom");
 }
 
 function GalleryRiveFallback() {
-  return <div className="gallery-rive-fallback" />;
+  return (
+    <div className="gallery-rive-fallback">
+      <img
+        aria-hidden="true"
+        className="gallery-rive-poster"
+        decoding="async"
+        fetchPriority="high"
+        src={BLACK_CAT_RIVE_POSTER_SRC}
+        alt=""
+      />
+    </div>
+  );
 }
 
 export function GalleryRiveShowcase() {
@@ -66,24 +74,21 @@ export function GalleryRiveShowcase() {
 
     ensureRivePreloadLink();
 
-    const cancelWarmup = queueRiveWarmup(() => {
-      void loadGalleryRiveCanvas();
-      void loadBlackCatRiveBuffer()
-        .then((buffer) => {
-          if (isMounted) {
-            setRiveBuffer(buffer);
-          }
-        })
-        .catch(() => {
-          if (isMounted) {
-            setUseSrcFallback(true);
-          }
-        });
-    });
+    void loadGalleryRiveCanvas();
+    void loadBlackCatRiveBuffer()
+      .then((buffer) => {
+        if (isMounted) {
+          setRiveBuffer(buffer);
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setUseSrcFallback(true);
+        }
+      });
 
     return () => {
       isMounted = false;
-      cancelWarmup();
     };
   }, [shouldRenderRive]);
 
@@ -97,6 +102,9 @@ export function GalleryRiveShowcase() {
       data-rive-glass-frame="true"
       data-rive-hover-input={BLACK_CAT_RIVE_HOVER_INPUT}
       data-rive-load-mode={loadMode}
+      data-rive-load-strategy="poster-buffer"
+      data-rive-poster={BLACK_CAT_RIVE_POSTER_SRC}
+      data-rive-runtime="lite"
       data-rive-src={BLACK_CAT_RIVE_SRC}
       data-rive-state-machine={BLACK_CAT_RIVE_STATE_MACHINE}
       data-rive-touch-interaction="true"

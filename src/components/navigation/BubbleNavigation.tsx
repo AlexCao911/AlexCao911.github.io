@@ -1,6 +1,5 @@
 import { handleInternalLink } from "../../router";
 import BubbleMenu from "../reactbits/BubbleMenu/BubbleMenu";
-import { LanyardContact } from "../reactbits/LanyardContact";
 
 type BubbleNavigationProps = {
   currentPath: string;
@@ -23,33 +22,24 @@ const bubbleItems = [
   },
 ];
 
-const SHOW_LANYARD_CARD = false;
-
 export function BubbleNavigation({ currentPath: _currentPath }: BubbleNavigationProps) {
   return (
-    <>
-      <BubbleMenu
-        logo={
-          <a
-            className="bubble-home-link"
-            href="/"
-            aria-label="Go to home"
-            onClick={(event) => handleInternalLink(event, "/")}
-          >
-            <img className="bubble-home-logo bubble-logo" src="/assets/brand/logo.png" alt="" aria-hidden="true" />
-          </a>
-        }
-        items={bubbleItems}
-        menuBg="#ffffff"
-        menuContentColor="#111111"
-        menuAriaLabel="Toggle site menu"
-        useFixedPosition
-      />
-      {SHOW_LANYARD_CARD ? (
-        <div className="nav-lanyard-slot">
-          <LanyardContact />
-        </div>
-      ) : null}
-    </>
+    <BubbleMenu
+      logo={
+        <a
+          className="bubble-home-link"
+          href="/"
+          aria-label="Go to home"
+          onClick={(event) => handleInternalLink(event, "/")}
+        >
+          <img className="bubble-home-logo bubble-logo" src="/assets/brand/logo.png" alt="" aria-hidden="true" />
+        </a>
+      }
+      items={bubbleItems}
+      menuBg="#ffffff"
+      menuContentColor="#111111"
+      menuAriaLabel="Toggle site menu"
+      useFixedPosition
+    />
   );
 }
