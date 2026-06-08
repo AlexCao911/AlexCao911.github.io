@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, test } from "vitest";
 import App from "../App";
 import { ContentBlocks } from "../components/ContentBlocks";
@@ -74,6 +74,21 @@ title: Demo embed
     expect(screen.getByRole("button", { name: /toggle site menu/i })).toHaveClass("toggle-bubble");
     expect(document.querySelector(".bubble-menu .logo-bubble")).toBeInTheDocument();
     expect(document.querySelectorAll(".bubble-link")).toHaveLength(0);
+  });
+
+  test("uses the footer monospace weight for bubble menu links", () => {
+    window.history.pushState({}, "", "/gallery");
+
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: /toggle site menu/i }));
+
+    const galleryLink = screen.getByRole("menuitem", { name: /gallery/i });
+    const notesLink = screen.getByRole("menuitem", { name: /notes/i });
+
+    expect(getComputedStyle(galleryLink).fontFamily).toContain("ui-monospace");
+    expect(getComputedStyle(notesLink).fontFamily).toContain("ui-monospace");
+    expect(getComputedStyle(galleryLink).fontWeight).toBe("700");
+    expect(getComputedStyle(notesLink).fontWeight).toBe("700");
   });
 
   test("keeps one decorative lanyard without contact text", () => {
@@ -180,18 +195,13 @@ title: Demo embed
     expect(document.querySelector(".fluid-glass-cursor")).toBeInTheDocument();
   });
 
-  test("mounts one standalone CSS robot without the Rive strip", () => {
+  test("keeps the top robot hidden for now", () => {
     window.history.pushState({}, "", "/gallery");
 
     render(<App />);
 
-    const robot = document.querySelector(".nav-robot.robot-animation");
-
-    expect(document.querySelectorAll(".robot-animation")).toHaveLength(1);
+    expect(document.querySelectorAll(".robot-animation")).toHaveLength(0);
     expect(document.querySelector(".nav-robot-slot")).not.toBeInTheDocument();
-    expect(robot).toHaveAttribute("data-robot-kind", "css");
-    expect(robot?.querySelector(".robot__body")).toBeInTheDocument();
-    expect(robot?.querySelector("canvas")).not.toBeInTheDocument();
   });
 
   test("uses a monochrome gallery accent palette", () => {
