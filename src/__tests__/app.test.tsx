@@ -142,6 +142,22 @@ title: Demo embed
       "data-rive-src",
       "/assets/rive/black-cat.riv"
     );
+    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
+      "data-rive-artboard",
+      "WCT 01"
+    );
+    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
+      "data-rive-state-machine",
+      "BLACK CATW"
+    );
+    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
+      "data-rive-hover-input",
+      "Hover"
+    );
+    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
+      "data-rive-touch-interaction",
+      "true"
+    );
     expect(document.querySelector(".gallery-hero .cube--tetrahedron")).not.toBeInTheDocument();
     expect(document.querySelector(".gallery-hero .meta-balls")).not.toBeInTheDocument();
   });

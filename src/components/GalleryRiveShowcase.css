@@ -22,6 +22,10 @@
   height: 100%;
 }
 
+.gallery-rive-canvas {
+  touch-action: none;
+}
+
 .gallery-rive-fallback {
   background: #8c5cff;
 }
