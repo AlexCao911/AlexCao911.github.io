@@ -1,4 +1,4 @@
-import { MagnetLines } from "../components/reactbits/MagnetLines";
+import { MetaBalls } from "../components/reactbits/MetaBalls";
 import { SiteFooter } from "../components/SiteFooter";
 import { works } from "../data/gallery";
 import { handleInternalLink } from "../router";
@@ -12,14 +12,14 @@ export function GalleryPage() {
           <h1>Gallery</h1>
         </div>
         <div className="reactbits-showcase gallery-pattern" aria-hidden="true">
-          <MagnetLines
-            rows={9}
-            columns={9}
-            containerSize="min(520px, 82vw)"
-            lineColor="#111111"
-            lineWidth="6px"
-            lineHeight="30px"
-            baseAngle={50}
+          <MetaBalls
+            ballCount={16}
+            animationSize={28}
+            clumpFactor={1.05}
+            color="#111111"
+            cursorBallColor="#111111"
+            enableMouseInteraction
+            speed={1}
           />
         </div>
       </section>

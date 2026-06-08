@@ -131,6 +131,15 @@ title: Demo embed
     expect(document.querySelector(".notes-hero .showcase-copy + .reactbits-showcase")).toBeInTheDocument();
   });
 
+  test("uses ReactBits MetaBalls on the gallery hero", () => {
+    window.history.pushState({}, "", "/gallery");
+
+    render(<App />);
+
+    expect(document.querySelector(".gallery-hero .meta-balls")).toBeInTheDocument();
+    expect(document.querySelector(".gallery-hero [data-reactbits-component='meta-balls']")).toBeInTheDocument();
+  });
+
   test("renders notes and a note detail page", () => {
     window.history.pushState({}, "", "/notes");
 
