@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from "react";
+import { LiquidGlassSurface } from "./reactbits/LiquidGlassSurface";
 import "./GalleryRiveShowcase.css";
 
 let galleryRiveCanvasPromise: Promise<{ default: typeof import("./GalleryRiveCanvas").default }> | null = null;
@@ -109,7 +110,7 @@ export function GalleryRiveShowcase() {
       data-rive-state-machine={BLACK_CAT_RIVE_STATE_MACHINE}
       data-rive-touch-interaction="true"
     >
-      <div className="gallery-rive-panel">
+      <LiquidGlassSurface className="gallery-rive-panel" borderRadius="8px">
         <div className="gallery-rive-viewport">
           {canRenderCanvas ? (
             <Suspense fallback={<GalleryRiveFallback />}>
@@ -125,7 +126,7 @@ export function GalleryRiveShowcase() {
             <GalleryRiveFallback />
           )}
         </div>
-      </div>
+      </LiquidGlassSurface>
     </div>
   );
 }

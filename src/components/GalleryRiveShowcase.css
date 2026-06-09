@@ -10,55 +10,12 @@
   position: relative;
   width: 100%;
   padding: clamp(10px, 1.8vw, 16px);
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.72);
   border-radius: 8px;
-  background:
-    radial-gradient(circle at 18% 8%, rgba(255, 255, 255, 0.82), transparent 28%),
-    radial-gradient(circle at 90% 92%, rgba(17, 17, 17, 0.08), transparent 34%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.14)),
-    rgba(255, 255, 255, 0.18);
-  box-shadow:
-    0 34px 100px rgba(17, 17, 17, 0.16),
-    0 8px 26px rgba(255, 255, 255, 0.56),
-    inset 0 1px 0 rgba(255, 255, 255, 0.92),
-    inset 0 -1px 0 rgba(17, 17, 17, 0.1);
-  backdrop-filter: blur(28px) saturate(168%) contrast(1.04);
-  isolation: isolate;
   transform: translateZ(0);
-}
-
-.gallery-rive-panel::before,
-.gallery-rive-panel::after {
-  position: absolute;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-}
-
-.gallery-rive-panel::before {
-  z-index: 1;
-  border-radius: inherit;
-  background:
-    linear-gradient(115deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.72) 18%, rgba(255, 255, 255, 0) 34%),
-    radial-gradient(ellipse at 16% 8%, rgba(255, 255, 255, 0.7), transparent 34%),
-    radial-gradient(ellipse at 90% 88%, rgba(0, 0, 0, 0.12), transparent 30%);
-  mix-blend-mode: screen;
-  opacity: 0.48;
-}
-
-.gallery-rive-panel::after {
-  z-index: 2;
-  border-radius: inherit;
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.58),
-    inset 12px 12px 28px rgba(255, 255, 255, 0.16),
-    inset -12px -14px 26px rgba(0, 0, 0, 0.08);
 }
 
 .gallery-rive-viewport {
   position: relative;
-  z-index: 0;
   width: 100%;
   aspect-ratio: 1;
   overflow: hidden;

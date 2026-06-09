@@ -30,6 +30,7 @@
   align-items: center;
   justify-content: center;
   pointer-events: auto;
+  transition: transform 220ms ease;
 }
 
 .bubble-menu .logo-bubble,
@@ -179,12 +180,9 @@
 }
 
 .bubble-menu-items .pill-link {
-  --pill-bg: #ffffff;
   --pill-color: #111;
-  --pill-border: rgba(0, 0, 0, 0.12);
   --item-rot: 0deg;
   --pill-min-h: 92px;
-  --hover-bg: #f3f4f6;
   --hover-color: #111;
   width: 100%;
   min-height: var(--pill-min-h);
@@ -194,17 +192,12 @@
   font-weight: 700;
   line-height: 0;
   border-radius: 999px;
-  background: var(--pill-bg);
   color: var(--pill-color);
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  transition:
-    background 0.3s ease,
-    color 0.3s ease;
+  transition: color 0.3s ease;
   will-change: transform;
   box-sizing: border-box;
   white-space: nowrap;
@@ -219,7 +212,6 @@
 
   .bubble-menu-items .pill-link:hover {
     transform: rotate(var(--item-rot)) scale(1.06);
-    background: var(--hover-bg);
     color: var(--hover-color);
   }
 
@@ -238,12 +230,12 @@
 @media (max-width: 899px) {
   .bubble-menu-items {
     align-items: flex-start;
-    padding-top: 76px;
+    padding-top: 64px;
   }
 
   .bubble-menu-items .pill-list {
-    gap: 14px;
-    row-gap: 14px;
+    gap: 8px;
+    row-gap: 8px;
     justify-content: center;
   }
 
@@ -254,14 +246,13 @@
   }
 
   .bubble-menu-items .pill-link {
-    font-size: clamp(1.2rem, 6vw, 2rem);
-    padding: clamp(0.8rem, 2vw, 1.25rem) 0;
-    min-height: 64px;
+    font-size: clamp(1.1rem, 5vw, 1.7rem);
+    padding: clamp(0.5rem, 1.5vw, 0.85rem) 0;
+    min-height: 54px;
   }
 
   .bubble-menu-items .pill-link:hover {
     transform: scale(1.06);
-    background: var(--hover-bg);
     color: var(--hover-color);
   }
 

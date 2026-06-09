@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { LiquidGlassSurface } from "../LiquidGlassSurface";
 
 import "./BubbleMenu.css";
 
@@ -86,7 +87,7 @@ export default function BubbleMenu({
   const [showOverlay, setShowOverlay] = useState(false);
 
   const overlayRef = useRef<HTMLDivElement>(null);
-  const bubblesRef = useRef<HTMLAnchorElement[]>([]);
+  const bubblesRef = useRef<HTMLElement[]>([]);
   const labelRefs = useRef<HTMLSpanElement[]>([]);
 
   const menuItems = items?.length ? items : DEFAULT_ITEMS;
@@ -206,7 +207,8 @@ export default function BubbleMenu({
           <ul className="pill-list" role="menu" aria-label="Menu links">
             {menuItems.map((item, idx) => (
               <li key={idx} role="none" className="pill-col">
-                <a
+                <LiquidGlassSurface
+                  as="a"
                   role="menuitem"
                   href={item.href}
                   aria-label={item.ariaLabel || item.label}
@@ -232,7 +234,7 @@ export default function BubbleMenu({
                   >
                     {item.label}
                   </span>
-                </a>
+                </LiquidGlassSurface>
               </li>
             ))}
           </ul>

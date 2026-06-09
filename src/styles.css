@@ -46,18 +46,19 @@ a {
   pointer-events: none;
 }
 
-.fluid-glass-cursor-surface {
-  position: fixed;
-  left: var(--fluid-cursor-x, 50vw);
-  top: var(--fluid-cursor-y, 50vh);
+.liquid-glass-surface {
+  position: relative;
   overflow: hidden;
-  pointer-events: none;
-  transform: translate3d(-50%, -50%, 0);
-  transition: opacity 180ms ease;
+  isolation: isolate;
   will-change: left, top, backdrop-filter;
 }
 
-.fluid-glass-cursor-filter {
+.liquid-glass-surface > :not(.liquid-glass-filter, .liquid-glass-highlight) {
+  position: relative;
+  z-index: 1;
+}
+
+.liquid-glass-filter {
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -67,8 +68,9 @@ a {
   pointer-events: none;
 }
 
-.fluid-glass-cursor-highlight {
+.liquid-glass-highlight {
   position: absolute;
+  z-index: 0;
   inset: 4px 6px auto 7px;
   height: 42%;
   border-radius: inherit;
@@ -78,6 +80,15 @@ a {
   mix-blend-mode: screen;
   opacity: 0.76;
   pointer-events: none;
+}
+
+.fluid-glass-cursor-surface {
+  position: fixed;
+  left: var(--fluid-cursor-x, 50vw);
+  top: var(--fluid-cursor-y, 50vh);
+  pointer-events: none;
+  transform: translate3d(-50%, -50%, 0);
+  transition: opacity 180ms ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
