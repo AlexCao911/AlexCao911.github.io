@@ -183,7 +183,8 @@
   --pill-color: #111;
   --item-rot: 0deg;
   --pill-min-h: 92px;
-  --hover-color: #111;
+  --hover-bg: rgba(17, 17, 17, 0.84);
+  --hover-color: #fff;
   width: 100%;
   min-height: var(--pill-min-h);
   padding: clamp(0.85rem, 1.6vw, 2rem) 0;
@@ -197,7 +198,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.3s ease;
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    color 0.3s ease;
   will-change: transform;
   box-sizing: border-box;
   white-space: nowrap;
@@ -212,6 +216,11 @@
 
   .bubble-menu-items .pill-link:hover {
     transform: rotate(var(--item-rot)) scale(1.06);
+    background: var(--hover-bg) !important;
+    box-shadow:
+      0 0 2px 1px rgba(255, 255, 255, 0.34) inset,
+      0 0 16px 5px rgba(255, 255, 255, 0.16) inset,
+      0 18px 34px rgba(17, 17, 26, 0.24) !important;
     color: var(--hover-color);
   }
 
@@ -253,6 +262,11 @@
 
   .bubble-menu-items .pill-link:hover {
     transform: scale(1.06);
+    background: var(--hover-bg) !important;
+    box-shadow:
+      0 0 2px 1px rgba(255, 255, 255, 0.34) inset,
+      0 0 16px 5px rgba(255, 255, 255, 0.16) inset,
+      0 18px 34px rgba(17, 17, 26, 0.24) !important;
     color: var(--hover-color);
   }
 

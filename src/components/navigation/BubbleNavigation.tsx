@@ -11,14 +11,14 @@ const bubbleItems = [
     href: "/gallery",
     ariaLabel: "Gallery",
     rotation: -8,
-    hoverStyles: { bgColor: "rgba(255, 255, 255, 0.7)", textColor: "#111111" },
+    hoverStyles: { bgColor: "rgba(17, 17, 17, 0.84)", textColor: "#ffffff" },
   },
   {
     label: "Notes",
     href: "/notes",
     ariaLabel: "Notes",
     rotation: 8,
-    hoverStyles: { bgColor: "rgba(255, 255, 255, 0.7)", textColor: "#111111" },
+    hoverStyles: { bgColor: "rgba(17, 17, 17, 0.84)", textColor: "#ffffff" },
   },
 ];
 
