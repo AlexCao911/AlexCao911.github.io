@@ -89,7 +89,7 @@ function useCompactLayout() {
 
 export const DodecahedronGrid: React.FC<DodecahedronGridProps> = ({
   gridSize = 8,
-  compactGridSize = 6,
+  compactGridSize = 8,
   shapeSize = 38,
   compactShapeSize = 28,
   cellGap = { row: 28, col: 34 },
