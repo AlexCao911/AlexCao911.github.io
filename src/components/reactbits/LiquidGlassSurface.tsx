@@ -55,6 +55,7 @@ export interface LiquidGlassSurfaceProps extends HTMLAttributes<HTMLElement> {
   target?: string;
   rel?: string;
   type?: "button" | "submit" | "reset";
+  mobileRefractionLayer?: boolean;
   children?: ReactNode;
 }
 
@@ -104,6 +105,7 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
     height,
     className,
     style,
+    mobileRefractionLayer = false,
     children,
     ...rest
   },
@@ -228,6 +230,11 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
   if (height) surfaceStyle.height = height;
   if (borderRadius) surfaceStyle.borderRadius = borderRadius;
 
+  const refractionStyle: CSSProperties = {
+    filter: `url(#${filterId}) saturate(${saturation})`,
+    WebkitFilter: `url(#${filterId}) saturate(${saturation})`,
+  };
+
   if (svgSupported) {
     surfaceStyle.background = isDarkMode
       ? `hsl(0 0% 0% / ${backgroundOpacity})`
@@ -259,10 +266,17 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
   return (
     <Component
       ref={setRefs as never}
-      className={["liquid-glass-surface", className].filter(Boolean).join(" ")}
+      className={[
+        "liquid-glass-surface",
+        mobileRefractionLayer ? "liquid-glass-surface--mobile-refraction" : "",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
       style={surfaceStyle}
       {...(rest as Record<string, unknown>)}
     >
+      {mobileRefractionLayer && <span className="liquid-glass-refraction" style={refractionStyle} />}
       {children}
       <svg className="liquid-glass-filter" xmlns="http://www.w3.org/2000/svg">
         <defs>

@@ -180,24 +180,23 @@ export default function BubbleMenu({
   return (
     <>
       <nav className={containerClassName} style={style} aria-label="Main navigation">
-        <LiquidGlassSurface className="bubble logo-bubble" aria-label="Logo" borderRadius="999px">
+        <div className="bubble logo-bubble" aria-label="Logo" style={{ background: menuBg }}>
           <span className="logo-content">
             {typeof logo === "string" ? <img src={logo} alt="Logo" className="bubble-logo" /> : logo}
           </span>
-        </LiquidGlassSurface>
+        </div>
 
-        <LiquidGlassSurface
-          as="button"
+        <button
           type="button"
           className={`bubble toggle-bubble menu-btn ${isMenuOpen ? "open" : ""}`}
           onClick={handleToggle}
           aria-label={menuAriaLabel}
           aria-pressed={isMenuOpen}
-          borderRadius="999px"
+          style={{ background: menuBg }}
         >
           <span className="menu-line" style={{ background: menuContentColor }} />
           <span className="menu-line short" style={{ background: menuContentColor }} />
-        </LiquidGlassSurface>
+        </button>
       </nav>
       {showOverlay && (
         <div
@@ -215,6 +214,7 @@ export default function BubbleMenu({
                   aria-label={item.ariaLabel || item.label}
                   className="pill-link"
                   borderRadius="999px"
+                  mobileRefractionLayer
                   style={
                     {
                       "--item-rot": `${item.rotation ?? 0}deg`,
