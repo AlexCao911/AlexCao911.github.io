@@ -214,7 +214,6 @@ export default function BubbleMenu({
                   aria-label={item.ariaLabel || item.label}
                   className="pill-link"
                   borderRadius="999px"
-                  mobileRefractionLayer
                   style={
                     {
                       "--item-rot": `${item.rotation ?? 0}deg`,

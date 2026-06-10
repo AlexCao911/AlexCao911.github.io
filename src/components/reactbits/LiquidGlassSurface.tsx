@@ -55,7 +55,6 @@ export interface LiquidGlassSurfaceProps extends HTMLAttributes<HTMLElement> {
   target?: string;
   rel?: string;
   type?: "button" | "submit" | "reset";
-  mobileRefractionLayer?: boolean;
   children?: ReactNode;
 }
 
@@ -105,7 +104,6 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
     height,
     className,
     style,
-    mobileRefractionLayer = false,
     children,
     ...rest
   },
@@ -122,8 +120,6 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
   const greenChannelRef = useRef<SVGFEDisplacementMapElement>(null);
   const blueChannelRef = useRef<SVGFEDisplacementMapElement>(null);
   const gaussianBlurRef = useRef<SVGFEGaussianBlurElement>(null);
-  const refractionLayerRef = useRef<HTMLSpanElement>(null);
-  const refractionCloneRefs = useRef<HTMLElement[]>([]);
   const [svgSupported, setSvgSupported] = useState(false);
   const isDarkMode = usePrefersDark();
 
@@ -229,89 +225,11 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
     return () => resizeObserver.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (!mobileRefractionLayer || typeof window === "undefined" || typeof document === "undefined") return;
-
-    const surface = containerRef.current;
-    const layer = refractionLayerRef.current;
-    const source = document.querySelector<HTMLElement>("main.page");
-
-    if (!surface || !layer || !source) return;
-
-    const clearLayer = () => {
-      while (layer.firstChild) layer.removeChild(layer.firstChild);
-    };
-
-    const syncClonePosition = () => {
-      const surfaceRect = surface.getBoundingClientRect();
-      const sourceRect = source.getBoundingClientRect();
-
-      refractionCloneRefs.current.forEach((clone) => {
-        clone.style.left = `${sourceRect.left - surfaceRect.left}px`;
-        clone.style.top = `${sourceRect.top - surfaceRect.top}px`;
-        clone.style.width = `${sourceRect.width}px`;
-        clone.style.minHeight = `${sourceRect.height}px`;
-      });
-    };
-
-    const mountClone = () => {
-      clearLayer();
-      refractionCloneRefs.current = [];
-
-      ["depth", "base", "red", "blue"].forEach((variant) => {
-        const clone = source.cloneNode(true) as HTMLElement;
-        clone.setAttribute("aria-hidden", "true");
-        clone.classList.add("liquid-glass-refraction__clone", `liquid-glass-refraction__clone--${variant}`);
-        clone.querySelectorAll<HTMLElement>("a, button, input, textarea, select, [tabindex]").forEach((element) => {
-          element.setAttribute("tabindex", "-1");
-        });
-
-        layer.appendChild(clone);
-        refractionCloneRefs.current.push(clone);
-      });
-      syncClonePosition();
-    };
-
-    let syncFrame: number | null = null;
-    const scheduleSync = () => {
-      if (syncFrame != null) window.cancelAnimationFrame(syncFrame);
-      syncFrame = window.requestAnimationFrame(() => {
-        syncFrame = null;
-        syncClonePosition();
-      });
-    };
-
-    mountClone();
-
-    const resizeObserver = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(scheduleSync);
-    resizeObserver?.observe(surface);
-    resizeObserver?.observe(source);
-
-    window.addEventListener("resize", scheduleSync, { passive: true });
-    window.addEventListener("scroll", scheduleSync, { passive: true });
-    window.addEventListener("orientationchange", scheduleSync);
-
-    return () => {
-      resizeObserver?.disconnect();
-      if (syncFrame != null) window.cancelAnimationFrame(syncFrame);
-      window.removeEventListener("resize", scheduleSync);
-      window.removeEventListener("scroll", scheduleSync);
-      window.removeEventListener("orientationchange", scheduleSync);
-      refractionCloneRefs.current = [];
-      clearLayer();
-    };
-  }, [mobileRefractionLayer]);
-
   const surfaceStyle: CSSProperties = { ...style };
 
   if (width) surfaceStyle.width = width;
   if (height) surfaceStyle.height = height;
   if (borderRadius) surfaceStyle.borderRadius = borderRadius;
-
-  const refractionStyle: CSSProperties = {
-    filter: `url(#${filterId}) saturate(${saturation})`,
-    WebkitFilter: `url(#${filterId}) saturate(${saturation})`,
-  };
 
   if (svgSupported) {
     surfaceStyle.background = isDarkMode
@@ -344,17 +262,10 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
   return (
     <Component
       ref={setRefs as never}
-      className={[
-        "liquid-glass-surface",
-        mobileRefractionLayer ? "liquid-glass-surface--mobile-refraction" : "",
-        className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className={["liquid-glass-surface", className].filter(Boolean).join(" ")}
       style={surfaceStyle}
       {...(rest as Record<string, unknown>)}
     >
-      {mobileRefractionLayer && <span ref={refractionLayerRef} className="liquid-glass-refraction" style={refractionStyle} />}
       {children}
       <svg className="liquid-glass-filter" xmlns="http://www.w3.org/2000/svg">
         <defs>

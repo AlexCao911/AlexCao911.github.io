@@ -87,11 +87,9 @@ title: Demo embed
     const notesLink = screen.getByRole("menuitem", { name: /notes/i });
 
     expect(galleryLink).toHaveClass("liquid-glass-surface");
-    expect(galleryLink).toHaveClass("liquid-glass-surface--mobile-refraction");
     expect(notesLink).toHaveClass("liquid-glass-surface");
-    expect(notesLink).toHaveClass("liquid-glass-surface--mobile-refraction");
-    expect(galleryLink.querySelector(".liquid-glass-refraction")).toBeInTheDocument();
-    expect(notesLink.querySelector(".liquid-glass-refraction")).toBeInTheDocument();
+    expect(galleryLink.querySelector(".liquid-glass-refraction")).not.toBeInTheDocument();
+    expect(notesLink.querySelector(".liquid-glass-refraction")).not.toBeInTheDocument();
     expect(getComputedStyle(galleryLink).fontFamily).toContain("ui-monospace");
     expect(getComputedStyle(notesLink).fontFamily).toContain("ui-monospace");
     expect(getComputedStyle(galleryLink).fontWeight).toBe("700");
