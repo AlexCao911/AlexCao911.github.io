@@ -1,6 +1,7 @@
 .dodecahedron-grid {
   display: grid;
-  width: min(820px, 100%);
+  width: 50%;
+  aspect-ratio: 1;
   place-items: center;
   overflow: visible;
   --dodecahedron-size: 38px;
@@ -10,9 +11,8 @@
 
 .dodecahedron-grid__scene {
   display: grid;
-  width: fit-content;
-  max-width: 100%;
-  padding: clamp(8px, 1.8vw, 20px);
+  width: 100%;
+  height: 100%;
   cursor: crosshair;
   perspective: 1200px;
   touch-action: none;
@@ -20,8 +20,8 @@
 }
 
 .dodecahedron-grid__cell {
-  width: var(--dodecahedron-size);
-  height: var(--dodecahedron-size);
+  width: 100%;
+  height: 100%;
   overflow: visible;
   perspective: 1200px;
 }
@@ -57,8 +57,8 @@
   shape-rendering: geometricPrecision;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .dodecahedron-grid {
-    width: min(430px, 100%);
+    width: 91.666667%;
   }
 }

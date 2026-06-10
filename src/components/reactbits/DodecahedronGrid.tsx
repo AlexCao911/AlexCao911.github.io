@@ -34,12 +34,11 @@ type FaceConfig = {
 };
 
 const PENTAGON_POINTS = "50,0 97.55,34.55 79.39,90.45 20.61,90.45 2.45,34.55";
-const COMPACT_QUERY = "(max-width: 640px)";
 
 function getGap(gap: Gap | undefined, axis: "row" | "col") {
-  if (typeof gap === "number") return gap;
-  if (gap && typeof gap[axis] === "number") return gap[axis];
-  return axis === "row" ? 24 : 28;
+  if (typeof gap === "number") return `${gap}px`;
+  if (gap && typeof gap[axis] === "number") return `${gap[axis]}px`;
+  return "5%";
 }
 
 function getDodecahedronFaces(size: number): FaceConfig[] {
@@ -70,30 +69,10 @@ function getDodecahedronFaces(size: number): FaceConfig[] {
   return faces;
 }
 
-function useCompactLayout() {
-  const [isCompact, setIsCompact] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
-
-    const media = window.matchMedia(COMPACT_QUERY);
-    const update = () => setIsCompact(media.matches);
-
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
-
-  return isCompact;
-}
-
 export const DodecahedronGrid: React.FC<DodecahedronGridProps> = ({
   gridSize = 8,
-  compactGridSize = 8,
-  shapeSize = 38,
-  compactShapeSize = 28,
-  cellGap = { row: 28, col: 34 },
-  compactCellGap = { row: 18, col: 20 },
+  shapeSize,
+  cellGap,
   maxAngle = 70,
   radius = 2.5,
   easing = "power3.out",
@@ -110,14 +89,41 @@ export const DodecahedronGrid: React.FC<DodecahedronGridProps> = ({
   const simPosRef = useRef({ x: 0, y: 0 });
   const simTargetRef = useRef({ x: 0, y: 0 });
   const simRAFRef = useRef<number | null>(null);
-  const isCompact = useCompactLayout();
+  const [measuredShapeSize, setMeasuredShapeSize] = useState(shapeSize ?? 38);
 
-  const resolvedGridSize = isCompact ? compactGridSize : gridSize;
-  const resolvedShapeSize = isCompact ? compactShapeSize : shapeSize;
-  const resolvedCellGap = isCompact ? compactCellGap : cellGap;
-  const rowGap = getGap(resolvedCellGap, "row");
-  const colGap = getGap(resolvedCellGap, "col");
+  const rowGap = getGap(cellGap, "row");
+  const colGap = getGap(cellGap, "col");
+  const resolvedGridSize = gridSize;
+  const resolvedShapeSize = shapeSize ?? measuredShapeSize;
   const facesConfig = useMemo(() => getDodecahedronFaces(resolvedShapeSize), [resolvedShapeSize]);
+
+  useEffect(() => {
+    if (shapeSize) {
+      setMeasuredShapeSize(shapeSize);
+      return;
+    }
+
+    const scene = sceneRef.current;
+    if (!scene) return;
+
+    const updateMeasuredShapeSize = () => {
+      const cell = scene.querySelector<HTMLDivElement>(".dodecahedron-grid__cell");
+      const nextSize = cell?.getBoundingClientRect().width ?? 38;
+
+      setMeasuredShapeSize((currentSize) => (Math.abs(currentSize - nextSize) < 0.5 ? currentSize : nextSize));
+    };
+
+    updateMeasuredShapeSize();
+
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", updateMeasuredShapeSize);
+      return () => window.removeEventListener("resize", updateMeasuredShapeSize);
+    }
+
+    const resizeObserver = new ResizeObserver(updateMeasuredShapeSize);
+    resizeObserver.observe(scene);
+    return () => resizeObserver.disconnect();
+  }, [shapeSize]);
 
   const tiltAt = useCallback(
     (rowCenter: number, colCenter: number) => {
@@ -329,10 +335,11 @@ export const DodecahedronGrid: React.FC<DodecahedronGridProps> = ({
     "--dodecahedron-face-stroke": edgeColor,
   } as React.CSSProperties;
   const sceneStyle: React.CSSProperties = {
-    gridTemplateColumns: `repeat(${resolvedGridSize}, ${resolvedShapeSize}px)`,
-    gridTemplateRows: `repeat(${resolvedGridSize}, ${resolvedShapeSize}px)`,
-    columnGap: `${colGap}px`,
-    rowGap: `${rowGap}px`,
+    gridTemplateColumns: `repeat(${resolvedGridSize}, 1fr)`,
+    gridTemplateRows: `repeat(${resolvedGridSize}, 1fr)`,
+    columnGap: colGap,
+    rowGap,
+    gridAutoRows: "1fr",
   };
 
   return (
