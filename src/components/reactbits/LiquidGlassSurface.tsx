@@ -123,7 +123,7 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
   const blueChannelRef = useRef<SVGFEDisplacementMapElement>(null);
   const gaussianBlurRef = useRef<SVGFEGaussianBlurElement>(null);
   const refractionLayerRef = useRef<HTMLSpanElement>(null);
-  const refractionCloneRef = useRef<HTMLElement | null>(null);
+  const refractionCloneRefs = useRef<HTMLElement[]>([]);
   const [svgSupported, setSvgSupported] = useState(false);
   const isDarkMode = usePrefersDark();
 
@@ -243,30 +243,32 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
     };
 
     const syncClonePosition = () => {
-      const clone = refractionCloneRef.current;
-      if (!clone) return;
-
       const surfaceRect = surface.getBoundingClientRect();
       const sourceRect = source.getBoundingClientRect();
 
-      clone.style.left = `${sourceRect.left - surfaceRect.left}px`;
-      clone.style.top = `${sourceRect.top - surfaceRect.top}px`;
-      clone.style.width = `${sourceRect.width}px`;
-      clone.style.minHeight = `${sourceRect.height}px`;
+      refractionCloneRefs.current.forEach((clone) => {
+        clone.style.left = `${sourceRect.left - surfaceRect.left}px`;
+        clone.style.top = `${sourceRect.top - surfaceRect.top}px`;
+        clone.style.width = `${sourceRect.width}px`;
+        clone.style.minHeight = `${sourceRect.height}px`;
+      });
     };
 
     const mountClone = () => {
       clearLayer();
+      refractionCloneRefs.current = [];
 
-      const clone = source.cloneNode(true) as HTMLElement;
-      clone.setAttribute("aria-hidden", "true");
-      clone.classList.add("liquid-glass-refraction__clone");
-      clone.querySelectorAll<HTMLElement>("a, button, input, textarea, select, [tabindex]").forEach((element) => {
-        element.setAttribute("tabindex", "-1");
+      ["depth", "base", "red", "blue"].forEach((variant) => {
+        const clone = source.cloneNode(true) as HTMLElement;
+        clone.setAttribute("aria-hidden", "true");
+        clone.classList.add("liquid-glass-refraction__clone", `liquid-glass-refraction__clone--${variant}`);
+        clone.querySelectorAll<HTMLElement>("a, button, input, textarea, select, [tabindex]").forEach((element) => {
+          element.setAttribute("tabindex", "-1");
+        });
+
+        layer.appendChild(clone);
+        refractionCloneRefs.current.push(clone);
       });
-
-      layer.appendChild(clone);
-      refractionCloneRef.current = clone;
       syncClonePosition();
     };
 
@@ -295,7 +297,7 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
       window.removeEventListener("resize", scheduleSync);
       window.removeEventListener("scroll", scheduleSync);
       window.removeEventListener("orientationchange", scheduleSync);
-      refractionCloneRef.current = null;
+      refractionCloneRefs.current = [];
       clearLayer();
     };
   }, [mobileRefractionLayer]);
