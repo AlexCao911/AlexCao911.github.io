@@ -169,12 +169,16 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
   useEffect(() => {
     if (typeof window === "undefined" || typeof document === "undefined") return;
 
-    const isWebkit = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
     const isFirefox = /Firefox/.test(navigator.userAgent);
     const testElement = document.createElement("div");
-    testElement.style.backdropFilter = `url(#${filterId})`;
+    const webkitStyle = testElement.style as CSSStyleDeclaration & { WebkitBackdropFilter?: string };
 
-    setSvgSupported(!isWebkit && !isFirefox && testElement.style.backdropFilter !== "");
+    testElement.style.backdropFilter = `url(#${filterId})`;
+    webkitStyle.WebkitBackdropFilter = `url(#${filterId})`;
+
+    const supportsSvgBackdropFilter = testElement.style.backdropFilter !== "" || webkitStyle.WebkitBackdropFilter !== "";
+
+    setSvgSupported(!isFirefox && supportsSvgBackdropFilter);
   }, [filterId]);
 
   useEffect(() => {
@@ -229,6 +233,7 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
       ? `hsl(0 0% 0% / ${backgroundOpacity})`
       : `hsl(0 0% 100% / ${backgroundOpacity})`;
     surfaceStyle.backdropFilter = `url(#${filterId}) saturate(${saturation})`;
+    surfaceStyle.WebkitBackdropFilter = `url(#${filterId}) saturate(${saturation})`;
     surfaceStyle.boxShadow = isDarkMode
       ? `0 0 2px 1px color-mix(in oklch, white, transparent 66%) inset,
          0 0 10px 4px color-mix(in oklch, white, transparent 86%) inset,

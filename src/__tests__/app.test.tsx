@@ -72,7 +72,8 @@ title: Demo embed
 
     expect(screen.getByRole("navigation", { name: /main navigation/i })).toHaveClass("bubble-menu");
     expect(screen.getByRole("button", { name: /toggle site menu/i })).toHaveClass("toggle-bubble");
-    expect(document.querySelector(".bubble-menu .logo-bubble")).toBeInTheDocument();
+    expect(document.querySelector(".bubble-menu .logo-bubble")).toHaveClass("liquid-glass-surface");
+    expect(screen.getByRole("button", { name: /toggle site menu/i })).toHaveClass("liquid-glass-surface");
     expect(document.querySelectorAll(".bubble-link")).toHaveLength(0);
   });
 
@@ -85,6 +86,8 @@ title: Demo embed
     const galleryLink = screen.getByRole("menuitem", { name: /gallery/i });
     const notesLink = screen.getByRole("menuitem", { name: /notes/i });
 
+    expect(galleryLink).toHaveClass("liquid-glass-surface");
+    expect(notesLink).toHaveClass("liquid-glass-surface");
     expect(getComputedStyle(galleryLink).fontFamily).toContain("ui-monospace");
     expect(getComputedStyle(notesLink).fontFamily).toContain("ui-monospace");
     expect(getComputedStyle(galleryLink).fontWeight).toBe("700");
