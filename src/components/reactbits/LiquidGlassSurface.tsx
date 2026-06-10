@@ -122,6 +122,8 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
   const greenChannelRef = useRef<SVGFEDisplacementMapElement>(null);
   const blueChannelRef = useRef<SVGFEDisplacementMapElement>(null);
   const gaussianBlurRef = useRef<SVGFEGaussianBlurElement>(null);
+  const refractionLayerRef = useRef<HTMLSpanElement>(null);
+  const refractionCloneRef = useRef<HTMLElement | null>(null);
   const [svgSupported, setSvgSupported] = useState(false);
   const isDarkMode = usePrefersDark();
 
@@ -171,7 +173,10 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
   useEffect(() => {
     if (typeof window === "undefined" || typeof document === "undefined") return;
 
+    const userAgent = navigator.userAgent;
     const isFirefox = /Firefox/.test(navigator.userAgent);
+    const isIOSWebKit =
+      /iPad|iPhone|iPod/.test(userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
     const testElement = document.createElement("div");
     const webkitStyle = testElement.style as CSSStyleDeclaration & { WebkitBackdropFilter?: string };
 
@@ -180,7 +185,7 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
 
     const supportsSvgBackdropFilter = testElement.style.backdropFilter !== "" || webkitStyle.WebkitBackdropFilter !== "";
 
-    setSvgSupported(!isFirefox && supportsSvgBackdropFilter);
+    setSvgSupported(!isFirefox && !isIOSWebKit && supportsSvgBackdropFilter);
   }, [filterId]);
 
   useEffect(() => {
@@ -223,6 +228,77 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
     resizeObserver.observe(containerRef.current);
     return () => resizeObserver.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (!mobileRefractionLayer || typeof window === "undefined" || typeof document === "undefined") return;
+
+    const surface = containerRef.current;
+    const layer = refractionLayerRef.current;
+    const source = document.querySelector<HTMLElement>("main.page");
+
+    if (!surface || !layer || !source) return;
+
+    const clearLayer = () => {
+      while (layer.firstChild) layer.removeChild(layer.firstChild);
+    };
+
+    const syncClonePosition = () => {
+      const clone = refractionCloneRef.current;
+      if (!clone) return;
+
+      const surfaceRect = surface.getBoundingClientRect();
+      const sourceRect = source.getBoundingClientRect();
+
+      clone.style.left = `${sourceRect.left - surfaceRect.left}px`;
+      clone.style.top = `${sourceRect.top - surfaceRect.top}px`;
+      clone.style.width = `${sourceRect.width}px`;
+      clone.style.minHeight = `${sourceRect.height}px`;
+    };
+
+    const mountClone = () => {
+      clearLayer();
+
+      const clone = source.cloneNode(true) as HTMLElement;
+      clone.setAttribute("aria-hidden", "true");
+      clone.classList.add("liquid-glass-refraction__clone");
+      clone.querySelectorAll<HTMLElement>("a, button, input, textarea, select, [tabindex]").forEach((element) => {
+        element.setAttribute("tabindex", "-1");
+      });
+
+      layer.appendChild(clone);
+      refractionCloneRef.current = clone;
+      syncClonePosition();
+    };
+
+    let syncFrame: number | null = null;
+    const scheduleSync = () => {
+      if (syncFrame != null) window.cancelAnimationFrame(syncFrame);
+      syncFrame = window.requestAnimationFrame(() => {
+        syncFrame = null;
+        syncClonePosition();
+      });
+    };
+
+    mountClone();
+
+    const resizeObserver = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(scheduleSync);
+    resizeObserver?.observe(surface);
+    resizeObserver?.observe(source);
+
+    window.addEventListener("resize", scheduleSync, { passive: true });
+    window.addEventListener("scroll", scheduleSync, { passive: true });
+    window.addEventListener("orientationchange", scheduleSync);
+
+    return () => {
+      resizeObserver?.disconnect();
+      if (syncFrame != null) window.cancelAnimationFrame(syncFrame);
+      window.removeEventListener("resize", scheduleSync);
+      window.removeEventListener("scroll", scheduleSync);
+      window.removeEventListener("orientationchange", scheduleSync);
+      refractionCloneRef.current = null;
+      clearLayer();
+    };
+  }, [mobileRefractionLayer]);
 
   const surfaceStyle: CSSProperties = { ...style };
 
@@ -276,7 +352,7 @@ export const LiquidGlassSurface = forwardRef<HTMLElement, LiquidGlassSurfaceProp
       style={surfaceStyle}
       {...(rest as Record<string, unknown>)}
     >
-      {mobileRefractionLayer && <span className="liquid-glass-refraction" style={refractionStyle} />}
+      {mobileRefractionLayer && <span ref={refractionLayerRef} className="liquid-glass-refraction" style={refractionStyle} />}
       {children}
       <svg className="liquid-glass-filter" xmlns="http://www.w3.org/2000/svg">
         <defs>
