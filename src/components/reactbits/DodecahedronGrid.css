@@ -1,0 +1,64 @@
+.dodecahedron-grid {
+  display: grid;
+  width: min(820px, 100%);
+  place-items: center;
+  overflow: visible;
+  --dodecahedron-size: 38px;
+  --dodecahedron-face-bg: #120f17;
+  --dodecahedron-face-stroke: #f7f7f4;
+}
+
+.dodecahedron-grid__scene {
+  display: grid;
+  width: fit-content;
+  max-width: 100%;
+  padding: clamp(8px, 1.8vw, 20px);
+  cursor: crosshair;
+  perspective: 1200px;
+  touch-action: none;
+  transform-style: preserve-3d;
+}
+
+.dodecahedron-grid__cell {
+  width: var(--dodecahedron-size);
+  height: var(--dodecahedron-size);
+  overflow: visible;
+  perspective: 1200px;
+}
+
+.dodecahedron {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.dodecahedron-face {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.dodecahedron-face svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.dodecahedron-face polygon {
+  fill: var(--dodecahedron-face-bg);
+  stroke: var(--dodecahedron-face-stroke);
+  stroke-linejoin: miter;
+  vector-effect: non-scaling-stroke;
+  shape-rendering: geometricPrecision;
+}
+
+@media (max-width: 640px) {
+  .dodecahedron-grid {
+    width: min(430px, 100%);
+  }
+}

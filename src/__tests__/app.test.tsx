@@ -132,58 +132,22 @@ title: Demo embed
     expect(document.querySelector(".notes-hero .showcase-copy + .reactbits-showcase")).toBeInTheDocument();
   });
 
-  test("uses the black cat Rive animation on the gallery hero", () => {
+  test("uses a touch-ready regular dodecahedron grid on the gallery hero", () => {
     window.history.pushState({}, "", "/gallery");
 
     render(<App />);
 
-    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toBeInTheDocument();
-    expect(document.querySelector(".gallery-hero .gallery-rive-panel")).toBeInTheDocument();
-    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
-      "data-rive-src",
-      "/assets/rive/black-cat.riv"
+    expect(document.querySelector(".gallery-hero .dodecahedron-grid")).toHaveAttribute(
+      "data-gallery-geometry",
+      "regular-dodecahedron"
     );
-    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
-      "data-rive-artboard",
-      "WCT 01"
-    );
-    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
-      "data-rive-glass-frame",
+    expect(document.querySelector(".gallery-hero .dodecahedron-grid")).toHaveAttribute(
+      "data-mobile-touch-interaction",
       "true"
     );
-    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
-      "data-rive-state-machine",
-      "BLACK CATW"
-    );
-    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
-      "data-rive-hover-input",
-      "Hover"
-    );
-    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
-      "data-rive-touch-interaction",
-      "true"
-    );
-    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
-      "data-rive-load-mode",
-      "test-fallback"
-    );
-    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
-      "data-rive-load-strategy",
-      "poster-buffer"
-    );
-    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
-      "data-rive-poster",
-      "/assets/rive/black-cat-poster.png"
-    );
-    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).toHaveAttribute(
-      "data-rive-runtime",
-      "lite"
-    );
-    expect(document.querySelector(".gallery-hero .gallery-rive-viewport")).toBeInTheDocument();
-    expect(document.querySelector(".gallery-hero .gallery-rive-poster")).toHaveAttribute(
-      "src",
-      "/assets/rive/black-cat-poster.png"
-    );
+    expect(document.querySelectorAll(".gallery-hero .dodecahedron")).toHaveLength(64);
+    expect(document.querySelectorAll(".gallery-hero .dodecahedron-face")).toHaveLength(64 * 12);
+    expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).not.toBeInTheDocument();
     expect(document.querySelector(".gallery-hero .cube--tetrahedron")).not.toBeInTheDocument();
     expect(document.querySelector(".gallery-hero .meta-balls")).not.toBeInTheDocument();
   });

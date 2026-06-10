@@ -1,4 +1,4 @@
-import { GalleryRiveShowcase } from "../components/GalleryRiveShowcase";
+import { DodecahedronGrid } from "../components/reactbits/DodecahedronGrid";
 import { SiteFooter } from "../components/SiteFooter";
 import { works } from "../data/gallery";
 import { handleInternalLink } from "../router";
@@ -12,7 +12,7 @@ export function GalleryPage() {
           <h1>Gallery</h1>
         </div>
         <div className="reactbits-showcase gallery-pattern" aria-hidden="true">
-          <GalleryRiveShowcase />
+          <DodecahedronGrid />
         </div>
       </section>
       <section className="work-grid" aria-label="Selected works">
