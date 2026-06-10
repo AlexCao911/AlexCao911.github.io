@@ -20,16 +20,18 @@
 }
 
 .dodecahedron-grid__cell {
+  display: grid;
   width: 100%;
   height: 100%;
   overflow: visible;
+  place-items: center;
   perspective: 1200px;
 }
 
 .dodecahedron {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 88%;
+  height: 88%;
   transform-style: preserve-3d;
   will-change: transform;
 }

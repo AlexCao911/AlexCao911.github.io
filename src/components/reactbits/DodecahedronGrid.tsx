@@ -107,8 +107,8 @@ export const DodecahedronGrid: React.FC<DodecahedronGridProps> = ({
     if (!scene) return;
 
     const updateMeasuredShapeSize = () => {
-      const cell = scene.querySelector<HTMLDivElement>(".dodecahedron-grid__cell");
-      const nextSize = cell?.getBoundingClientRect().width ?? 38;
+      const shape = scene.querySelector<HTMLDivElement>(".dodecahedron");
+      const nextSize = shape?.getBoundingClientRect().width ?? 38;
 
       setMeasuredShapeSize((currentSize) => (Math.abs(currentSize - nextSize) < 0.5 ? currentSize : nextSize));
     };
