@@ -91,6 +91,11 @@ title: Demo embed
     expect(screen.getByRole("button", { name: /toggle site menu/i })).toHaveClass("toggle-bubble");
     expect(document.querySelector(".bubble-menu .logo-bubble")).not.toHaveClass("liquid-glass-surface");
     expect(screen.getByRole("button", { name: /toggle site menu/i })).not.toHaveClass("liquid-glass-surface");
+    expect(document.querySelector(".bubble-home-logo")).toHaveAttribute("src", "/assets/brand/logo-128.png");
+    expect(document.querySelector(".bubble-home-logo")).toHaveAttribute(
+      "srcset",
+      "/assets/brand/logo-64.png 64w, /assets/brand/logo-128.png 128w, /assets/brand/logo-256.png 256w"
+    );
     expect(document.querySelectorAll(".bubble-link")).toHaveLength(0);
   });
 
@@ -157,20 +162,26 @@ title: Demo embed
     const { unmount } = render(<App />);
 
     expect(document.querySelector(".gallery-hero .showcase-stage .reactbits-showcase")).toBeInTheDocument();
-    expect(screen.getByRole("img", { name: /gallery page/i })).toHaveAttribute(
-      "src",
-      "/assets/illustrations/gallery-spot.png"
+    const galleryIllustration = screen.getByRole("img", { name: /gallery page/i });
+    expect(galleryIllustration).toHaveAttribute("src", "/assets/illustrations/gallery-spot-720.jpg");
+    expect(galleryIllustration).toHaveAttribute(
+      "srcset",
+      "/assets/illustrations/gallery-spot-720.jpg 720w, /assets/illustrations/gallery-spot-1280.jpg 1280w"
     );
+    expect(galleryIllustration).toHaveAttribute("loading", "lazy");
 
     unmount();
     window.history.pushState({}, "", "/notes");
     render(<App />);
 
     expect(document.querySelector(".notes-hero .showcase-stage .reactbits-showcase")).toBeInTheDocument();
-    expect(screen.getByRole("img", { name: /notes and research/i })).toHaveAttribute(
-      "src",
-      "/assets/illustrations/notes-spot.png"
+    const notesIllustration = screen.getByRole("img", { name: /notes and research/i });
+    expect(notesIllustration).toHaveAttribute("src", "/assets/illustrations/notes-spot-720.jpg");
+    expect(notesIllustration).toHaveAttribute(
+      "srcset",
+      "/assets/illustrations/notes-spot-720.jpg 720w, /assets/illustrations/notes-spot-1280.jpg 1280w"
     );
+    expect(notesIllustration).toHaveAttribute("loading", "lazy");
   });
 
   test("uses a touch-ready regular dodecahedron grid on the gallery hero", () => {

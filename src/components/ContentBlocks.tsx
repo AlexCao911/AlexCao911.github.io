@@ -16,7 +16,7 @@ export function ContentBlocks({ blocks }: ContentBlocksProps) {
         if (block.type === "image") {
           return (
             <figure className="content-media content-media-image" key={`${block.type}-${block.src}-${index}`}>
-              <img src={block.src} alt={block.alt} loading="lazy" />
+              <img src={block.src} alt={block.alt} loading="lazy" decoding="async" />
               {block.caption ? <figcaption>{block.caption}</figcaption> : null}
             </figure>
           );

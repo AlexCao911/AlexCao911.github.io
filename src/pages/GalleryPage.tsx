@@ -1,4 +1,5 @@
 import { DodecahedronGrid } from "../components/reactbits/DodecahedronGrid";
+import { ShowcaseIllustration } from "../components/ShowcaseIllustration";
 import { SiteFooter } from "../components/SiteFooter";
 import { works } from "../data/gallery";
 import { handleInternalLink } from "../router";
@@ -15,13 +16,10 @@ export function GalleryPage() {
           <div className="reactbits-showcase gallery-pattern" aria-hidden="true">
             <DodecahedronGrid gridRows={5} gridColumns={9} />
           </div>
-          <figure className="showcase-illustration">
-            <img
-              className="showcase-illustration__image"
-              src="/assets/illustrations/gallery-spot.png"
-              alt="Hand-drawn studio illustration for the gallery page"
-            />
-          </figure>
+          <ShowcaseIllustration
+            name="gallery-spot"
+            alt="Hand-drawn studio illustration for the gallery page"
+          />
         </div>
       </section>
       <section className="work-grid" aria-label="Selected works">

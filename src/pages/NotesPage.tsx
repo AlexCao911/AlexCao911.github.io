@@ -1,4 +1,5 @@
 import { Cubes } from "../components/reactbits/Cubes";
+import { ShowcaseIllustration } from "../components/ShowcaseIllustration";
 import { SiteFooter } from "../components/SiteFooter";
 import { notes } from "../data/notes";
 import { handleInternalLink } from "../router";
@@ -14,13 +15,7 @@ export function NotesPage() {
           <div className="reactbits-showcase notes-pattern" aria-hidden="true">
             <Cubes gridRows={6} gridColumns={10} />
           </div>
-          <figure className="showcase-illustration">
-            <img
-              className="showcase-illustration__image"
-              src="/assets/illustrations/notes-spot.png"
-              alt="Hand-drawn notes and research illustration"
-            />
-          </figure>
+          <ShowcaseIllustration name="notes-spot" alt="Hand-drawn notes and research illustration" />
         </div>
       </section>
       <section className="notes-list" aria-label="Notes">

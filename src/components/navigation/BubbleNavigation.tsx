@@ -32,7 +32,17 @@ export function BubbleNavigation({ currentPath: _currentPath }: BubbleNavigation
           aria-label="Go to home"
           onClick={(event) => handleInternalLink(event, "/")}
         >
-          <img className="bubble-home-logo bubble-logo" src="/assets/brand/logo.png" alt="" aria-hidden="true" />
+          <img
+            className="bubble-home-logo bubble-logo"
+            src="/assets/brand/logo-128.png"
+            srcSet="/assets/brand/logo-64.png 64w, /assets/brand/logo-128.png 128w, /assets/brand/logo-256.png 256w"
+            sizes="64px"
+            width="128"
+            height="128"
+            decoding="async"
+            alt=""
+            aria-hidden="true"
+          />
         </a>
       }
       items={bubbleItems}
