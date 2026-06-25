@@ -4,7 +4,7 @@ title: Local AI Watch
 year: 2025
 type: Research Tool
 summary: A local-first dashboard for model experiments and evaluation traces.
-accent: #111111
+accent: #4343f8
 order: 3
 ---
 

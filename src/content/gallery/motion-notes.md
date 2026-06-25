@@ -4,7 +4,7 @@ title: Motion Notes
 year: 2025
 type: Prototype
 summary: A note-taking surface where motion carries hierarchy instead of decoration.
-accent: #111111
+accent: #4343f8
 order: 2
 ---
 

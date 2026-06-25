@@ -4,7 +4,7 @@ title: Interface Atlas
 year: 2026
 type: Product System
 summary: A compact visual system for collecting reusable interaction patterns.
-accent: #111111
+accent: #4343f8
 order: 1
 ---
 

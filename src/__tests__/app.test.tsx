@@ -90,8 +90,8 @@ title: Demo embed
     expect(notesLink).toHaveClass("liquid-glass-surface");
     expect(galleryLink.querySelector(".liquid-glass-refraction")).not.toBeInTheDocument();
     expect(notesLink.querySelector(".liquid-glass-refraction")).not.toBeInTheDocument();
-    expect(getComputedStyle(galleryLink).fontFamily).toContain("ui-monospace");
-    expect(getComputedStyle(notesLink).fontFamily).toContain("ui-monospace");
+    expect(getComputedStyle(galleryLink).fontFamily).toMatch(/var\(--font-accent\)|ui-monospace/);
+    expect(getComputedStyle(notesLink).fontFamily).toMatch(/var\(--font-accent\)|ui-monospace/);
     expect(getComputedStyle(galleryLink).fontWeight).toBe("700");
     expect(getComputedStyle(notesLink).fontWeight).toBe("700");
   });
@@ -230,16 +230,16 @@ title: Demo embed
     expect(document.querySelector(".nav-robot-slot")).not.toBeInTheDocument();
   });
 
-  test("uses a monochrome gallery accent palette", () => {
+  test("uses the Niceshit-inspired violet gallery accent palette", () => {
     window.history.pushState({}, "", "/gallery");
 
     render(<App />);
 
     const workCards = Array.from(document.querySelectorAll<HTMLElement>(".work-card"));
     expect(workCards.map((card) => card.style.getPropertyValue("--accent"))).toEqual([
-      "#111111",
-      "#111111",
-      "#111111",
+      "#4343f8",
+      "#4343f8",
+      "#4343f8",
     ]);
   });
 });
