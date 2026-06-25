@@ -220,7 +220,7 @@ a {
 
 .home-hero h1 {
   font-size: clamp(72px, 14vw, 176px);
-  font-weight: 700;
+  font-weight: 900;
 }
 
 .eyebrow {
@@ -243,15 +243,23 @@ h1 {
   margin-bottom: 0;
   font-family: var(--font-display);
   font-size: clamp(56px, 11vw, 148px);
-  font-weight: 700;
+  font-weight: 900;
   letter-spacing: 0.01em;
   line-height: 0.92;
 }
 
 .display-title {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 900;
   letter-spacing: 0.01em;
+  -webkit-text-stroke-color: currentColor;
+  -webkit-text-stroke-width: 0.02em;
+  paint-order: stroke fill;
+  text-shadow:
+    0.018em 0 currentColor,
+    -0.012em 0 currentColor,
+    0 0.014em currentColor,
+    0 -0.008em currentColor;
 }
 
 h2 {
@@ -303,7 +311,7 @@ h2 {
 
 .showcase-hero h1 {
   font-size: clamp(86px, 14vw, 184px);
-  font-weight: 700;
+  font-weight: 900;
 }
 
 .showcase-copy .eyebrow {
