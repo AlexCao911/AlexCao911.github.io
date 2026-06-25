@@ -23,6 +23,23 @@ describe("personal website routing", () => {
     expect(screen.queryByRole("link", { name: /hello@alexandercou\.com/i })).not.toBeInTheDocument();
   });
 
+  test("uses the Niceshit display font for major page titles", () => {
+    window.history.pushState({}, "", "/");
+
+    const { unmount } = render(<App />);
+    expect(screen.getByRole("heading", { name: /alexander cou/i })).toHaveClass("display-title");
+
+    unmount();
+    window.history.pushState({}, "", "/gallery");
+    const galleryRender = render(<App />);
+    expect(screen.getByRole("heading", { name: /gallery/i })).toHaveClass("display-title");
+
+    galleryRender.unmount();
+    window.history.pushState({}, "", "/notes");
+    render(<App />);
+    expect(screen.getByRole("heading", { level: 1, name: /notes/i })).toHaveClass("display-title");
+  });
+
   test("loads gallery and notes content from markdown collections", () => {
     expect(works.map((work) => work.slug)).toEqual(["interface-atlas", "motion-notes", "local-ai-watch"]);
     expect(notes.map((note) => note.slug)).toEqual(["designing-with-motion", "personal-systems", "small-interfaces"]);

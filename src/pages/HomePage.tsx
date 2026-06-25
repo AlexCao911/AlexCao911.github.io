@@ -7,7 +7,7 @@ export function HomePage() {
     <main className="page home-page">
       <DitherBackground />
       <section className="home-hero">
-        <h1>{profile.name}</h1>
+        <h1 className="display-title">{profile.name}</h1>
       </section>
       <SiteFooter />
     </main>

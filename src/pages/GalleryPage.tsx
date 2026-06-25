@@ -9,7 +9,7 @@ export function GalleryPage() {
     <main className="page gallery-page">
       <section className="showcase-hero gallery-hero">
         <div className="showcase-copy">
-          <h1>Gallery</h1>
+          <h1 className="display-title">Gallery</h1>
         </div>
         <div className="reactbits-showcase gallery-pattern" aria-hidden="true">
           <DodecahedronGrid />
