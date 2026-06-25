@@ -362,18 +362,14 @@ h2 {
   padding: 28px;
   border: 0;
   border-radius: 24px 18px 28px 20px / 18px 28px 20px 24px;
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow:
-    0 24px 70px rgba(17, 17, 17, 0.08);
-  backdrop-filter: blur(18px);
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
   font-family: var(--font-accent);
   isolation: isolate;
   overflow: hidden;
   transform: translate3d(0, 0, 0);
-  transition:
-    background 220ms ease,
-    box-shadow 220ms ease,
-    transform 220ms ease;
+  transition: transform 220ms ease;
 }
 
 .work-card::before,
@@ -382,10 +378,7 @@ h2 {
   inset: -1px;
   z-index: -1;
   content: "";
-  background:
-    radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.92), transparent 30%),
-    radial-gradient(circle at 85% 100%, var(--accent-soft), transparent 34%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.08));
+  background: none;
   opacity: 0;
   transition: opacity 220ms ease;
 }
@@ -420,12 +413,8 @@ h2 {
   .work-card:focus-within,
   .note-card:hover,
   .note-card:focus-within {
-    background: rgba(255, 255, 255, 0.66);
-    box-shadow:
-      0 36px 100px rgba(17, 17, 17, 0.13),
-      0 18px 70px var(--accent-soft),
-      inset 0 1px 0 rgba(255, 255, 255, 0.86),
-      inset 0 -1px 0 rgba(17, 17, 17, 0.07);
+    background: transparent;
+    box-shadow: none;
     transform: translate3d(0, -8px, 0);
   }
 
@@ -433,7 +422,7 @@ h2 {
   .work-card:focus-within::before,
   .note-card:hover::before,
   .note-card:focus-within::before {
-    opacity: 1;
+    opacity: 0;
   }
 
   .work-card:hover::after,
