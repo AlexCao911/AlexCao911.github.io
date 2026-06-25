@@ -12,6 +12,8 @@ type Duration = {
 
 export interface DodecahedronGridProps {
   gridSize?: number;
+  gridRows?: number;
+  gridColumns?: number;
   compactGridSize?: number;
   shapeSize?: number;
   compactShapeSize?: number;
@@ -71,6 +73,8 @@ function getDodecahedronFaces(size: number): FaceConfig[] {
 
 export const DodecahedronGrid: React.FC<DodecahedronGridProps> = ({
   gridSize = 8,
+  gridRows,
+  gridColumns,
   shapeSize,
   cellGap,
   maxAngle = 70,
@@ -93,7 +97,8 @@ export const DodecahedronGrid: React.FC<DodecahedronGridProps> = ({
 
   const rowGap = getGap(cellGap, "row");
   const colGap = getGap(cellGap, "col");
-  const resolvedGridSize = gridSize;
+  const resolvedRows = gridRows ?? gridSize;
+  const resolvedColumns = gridColumns ?? gridSize;
   const resolvedShapeSize = shapeSize ?? measuredShapeSize;
   const facesConfig = useMemo(() => getDodecahedronFaces(resolvedShapeSize), [resolvedShapeSize]);
 
@@ -166,15 +171,15 @@ export const DodecahedronGrid: React.FC<DodecahedronGridProps> = ({
       if (!sceneRef.current) return;
 
       const rect = sceneRef.current.getBoundingClientRect();
-      const cellW = rect.width / resolvedGridSize;
-      const cellH = rect.height / resolvedGridSize;
+      const cellW = rect.width / resolvedColumns;
+      const cellH = rect.height / resolvedRows;
       const colCenter = (clientX - rect.left) / cellW;
       const rowCenter = (clientY - rect.top) / cellH;
 
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = requestAnimationFrame(() => tiltAt(rowCenter, colCenter));
     },
-    [resolvedGridSize, tiltAt]
+    [resolvedColumns, resolvedRows, tiltAt]
   );
 
   const markUserActive = useCallback(() => {
@@ -241,8 +246,8 @@ export const DodecahedronGrid: React.FC<DodecahedronGridProps> = ({
       if (!rippleOnClick || !sceneRef.current) return;
 
       const rect = sceneRef.current.getBoundingClientRect();
-      const cellW = rect.width / resolvedGridSize;
-      const cellH = rect.height / resolvedGridSize;
+      const cellW = rect.width / resolvedColumns;
+      const cellH = rect.height / resolvedRows;
       const colHit = (event.clientX - rect.left) / cellW;
       const rowHit = (event.clientY - rect.top) / cellH;
 
@@ -261,19 +266,19 @@ export const DodecahedronGrid: React.FC<DodecahedronGridProps> = ({
         });
       });
     },
-    [duration.ripple, resolvedGridSize, rippleOnClick]
+    [duration.ripple, resolvedColumns, resolvedRows, rippleOnClick]
   );
 
   useEffect(() => {
     if (!autoAnimate || !sceneRef.current) return;
 
     simPosRef.current = {
-      x: Math.random() * resolvedGridSize,
-      y: Math.random() * resolvedGridSize,
+      x: Math.random() * resolvedColumns,
+      y: Math.random() * resolvedRows,
     };
     simTargetRef.current = {
-      x: Math.random() * resolvedGridSize,
-      y: Math.random() * resolvedGridSize,
+      x: Math.random() * resolvedColumns,
+      y: Math.random() * resolvedRows,
     };
 
     const speed = 0.018;
@@ -288,8 +293,8 @@ export const DodecahedronGrid: React.FC<DodecahedronGridProps> = ({
 
         if (Math.hypot(pos.x - target.x, pos.y - target.y) < 0.1) {
           simTargetRef.current = {
-            x: Math.random() * resolvedGridSize,
-            y: Math.random() * resolvedGridSize,
+            x: Math.random() * resolvedColumns,
+            y: Math.random() * resolvedRows,
           };
         }
       }
@@ -301,7 +306,7 @@ export const DodecahedronGrid: React.FC<DodecahedronGridProps> = ({
     return () => {
       if (simRAFRef.current != null) cancelAnimationFrame(simRAFRef.current);
     };
-  }, [autoAnimate, resolvedGridSize, tiltAt]);
+  }, [autoAnimate, resolvedColumns, resolvedRows, tiltAt]);
 
   useEffect(() => {
     const el = sceneRef.current;
@@ -328,15 +333,16 @@ export const DodecahedronGrid: React.FC<DodecahedronGridProps> = ({
     };
   }, [onClick, onPointerMove, onTouchEnd, onTouchMove, onTouchStart, resetAll]);
 
-  const cells = Array.from({ length: resolvedGridSize });
+  const rows = Array.from({ length: resolvedRows });
+  const columns = Array.from({ length: resolvedColumns });
   const wrapperStyle = {
     "--dodecahedron-size": `${resolvedShapeSize}px`,
     "--dodecahedron-face-bg": faceColor,
     "--dodecahedron-face-stroke": edgeColor,
   } as React.CSSProperties;
   const sceneStyle: React.CSSProperties = {
-    gridTemplateColumns: `repeat(${resolvedGridSize}, 1fr)`,
-    gridTemplateRows: `repeat(${resolvedGridSize}, 1fr)`,
+    gridTemplateColumns: `repeat(${resolvedColumns}, 1fr)`,
+    gridTemplateRows: `repeat(${resolvedRows}, 1fr)`,
     columnGap: colGap,
     rowGap,
     gridAutoRows: "1fr",
@@ -350,8 +356,8 @@ export const DodecahedronGrid: React.FC<DodecahedronGridProps> = ({
       style={wrapperStyle}
     >
       <div ref={sceneRef} className="dodecahedron-grid__scene" style={sceneStyle}>
-        {cells.map((_, row) =>
-          cells.map((__, col) => (
+        {rows.map((_, row) =>
+          columns.map((__, col) => (
             <div className="dodecahedron-grid__cell" key={`${row}-${col}`}>
               <div className="dodecahedron" data-row={row} data-col={col}>
                 {facesConfig.map((face) => (

@@ -156,13 +156,21 @@ title: Demo embed
 
     const { unmount } = render(<App />);
 
-    expect(document.querySelector(".gallery-hero .showcase-copy + .reactbits-showcase")).toBeInTheDocument();
+    expect(document.querySelector(".gallery-hero .showcase-stage .reactbits-showcase")).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /gallery page/i })).toHaveAttribute(
+      "src",
+      "/assets/illustrations/gallery-spot.png"
+    );
 
     unmount();
     window.history.pushState({}, "", "/notes");
     render(<App />);
 
-    expect(document.querySelector(".notes-hero .showcase-copy + .reactbits-showcase")).toBeInTheDocument();
+    expect(document.querySelector(".notes-hero .showcase-stage .reactbits-showcase")).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /notes and research/i })).toHaveAttribute(
+      "src",
+      "/assets/illustrations/notes-spot.png"
+    );
   });
 
   test("uses a touch-ready regular dodecahedron grid on the gallery hero", () => {
@@ -178,8 +186,8 @@ title: Demo embed
       "data-mobile-touch-interaction",
       "true"
     );
-    expect(document.querySelectorAll(".gallery-hero .dodecahedron")).toHaveLength(64);
-    expect(document.querySelectorAll(".gallery-hero .dodecahedron-face")).toHaveLength(64 * 12);
+    expect(document.querySelectorAll(".gallery-hero .dodecahedron")).toHaveLength(45);
+    expect(document.querySelectorAll(".gallery-hero .dodecahedron-face")).toHaveLength(45 * 12);
     expect(document.querySelector(".gallery-hero .gallery-rive-showcase")).not.toBeInTheDocument();
     expect(document.querySelector(".gallery-hero .cube--tetrahedron")).not.toBeInTheDocument();
     expect(document.querySelector(".gallery-hero .meta-balls")).not.toBeInTheDocument();
@@ -225,12 +233,12 @@ title: Demo embed
     expect(document.querySelector(".notes-hero .cube .cube-face")).toBeInTheDocument();
   });
 
-  test("uses the official ReactBits Cubes default grid on the notes hero", () => {
+  test("uses a 16:9 ReactBits Cubes grid on the notes hero", () => {
     window.history.pushState({}, "", "/notes");
 
     render(<App />);
 
-    expect(document.querySelectorAll(".notes-hero .cube")).toHaveLength(100);
+    expect(document.querySelectorAll(".notes-hero .cube")).toHaveLength(60);
   });
 
   test("mounts the ReactBits Dither stage on the home page", () => {

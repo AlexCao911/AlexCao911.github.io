@@ -10,8 +10,17 @@ export function NotesPage() {
         <div className="showcase-copy">
           <h1 className="display-title">Notes</h1>
         </div>
-        <div className="reactbits-showcase notes-pattern" aria-hidden="true">
-          <Cubes />
+        <div className="showcase-stage">
+          <div className="reactbits-showcase notes-pattern" aria-hidden="true">
+            <Cubes gridRows={6} gridColumns={10} />
+          </div>
+          <figure className="showcase-illustration">
+            <img
+              className="showcase-illustration__image"
+              src="/assets/illustrations/notes-spot.png"
+              alt="Hand-drawn notes and research illustration"
+            />
+          </figure>
         </div>
       </section>
       <section className="notes-list" aria-label="Notes">
