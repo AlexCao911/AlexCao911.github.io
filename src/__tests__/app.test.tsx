@@ -109,8 +109,19 @@ title: Demo embed
     expect(notesLink.querySelector(".liquid-glass-refraction")).not.toBeInTheDocument();
     expect(getComputedStyle(galleryLink).fontFamily).toMatch(/var\(--font-accent\)|ui-monospace/);
     expect(getComputedStyle(notesLink).fontFamily).toMatch(/var\(--font-accent\)|ui-monospace/);
-    expect(getComputedStyle(galleryLink).fontWeight).toBe("700");
-    expect(getComputedStyle(notesLink).fontWeight).toBe("700");
+    expect(getComputedStyle(galleryLink).fontWeight).toBe("900");
+    expect(getComputedStyle(notesLink).fontWeight).toBe("900");
+  });
+
+  test("uses handwritten styling for display titles and card titles", () => {
+    window.history.pushState({}, "", "/gallery");
+
+    render(<App />);
+
+    const workTitle = screen.getByRole("heading", { name: /interface atlas/i });
+
+    expect(document.querySelectorAll(".display-title")).toHaveLength(1);
+    expect(workTitle).toHaveClass("card-title");
   });
 
   test("keeps the decorative lanyard card hidden for now", () => {

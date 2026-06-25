@@ -8,23 +8,15 @@
   font-display: block;
 }
 
-@font-face {
-  font-family: "Onlysans Regular";
-  src: url("/fonts/Onlysans-Regular.woff") format("woff");
-  font-style: normal;
-  font-weight: 400;
-  font-display: block;
-}
-
 :root {
   color: #111111;
   background: #f7f7f4;
   font-family: var(--font-body);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  --font-body: "Onlysans Regular", "Helvetica Neue", Arial, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: "Niceshit", "Onlysans Regular", "Helvetica Neue", Arial, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-accent: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-body: var(--font-accent);
+  --font-display: "Niceshit", var(--font-accent);
   --paper: #f7f7f4;
   --ink: #111111;
   --muted: #5b5d5d;
@@ -46,6 +38,8 @@ html {
 body {
   min-height: 100%;
   margin: 0;
+  font-family: var(--font-body);
+  font-weight: 900;
 }
 
 a {
@@ -241,7 +235,7 @@ p {
 h1 {
   max-width: 900px;
   margin-bottom: 0;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(56px, 11vw, 148px);
   font-weight: 900;
   letter-spacing: 0.01em;
@@ -263,9 +257,9 @@ h1 {
 }
 
 h2 {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 900;
   line-height: 1.1;
 }
 
@@ -274,7 +268,7 @@ h2 {
   margin-bottom: 0;
   font-size: 26px;
   line-height: 1.25;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .home-intro,
@@ -366,17 +360,17 @@ h2 {
   align-content: space-between;
   gap: 24px;
   padding: 28px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  border: 0;
+  border-radius: 24px 18px 28px 20px / 18px 28px 20px 24px;
   background: rgba(255, 255, 255, 0.78);
-  box-shadow: 0 24px 70px rgba(17, 17, 17, 0.08);
+  box-shadow:
+    0 24px 70px rgba(17, 17, 17, 0.08);
   backdrop-filter: blur(18px);
   font-family: var(--font-accent);
   isolation: isolate;
   overflow: hidden;
   transform: translate3d(0, 0, 0);
   transition:
-    border-color 220ms ease,
     background 220ms ease,
     box-shadow 220ms ease,
     transform 220ms ease;
@@ -399,19 +393,22 @@ h2 {
 .work-card::after,
 .note-card::after {
   position: absolute;
-  inset: 1px;
-  z-index: -1;
+  inset: 0;
+  z-index: 0;
   content: "";
-  border-radius: 7px;
-  background:
-    linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.62) 22%, transparent 38%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.32), transparent 46%);
-  opacity: 0;
-  transform: translateX(-42%);
-  transition:
-    opacity 220ms ease,
-    transform 420ms ease;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.2 6.4 C18.5 3.9 39.6 4.8 58.9 4.1 C76.4 3.5 93.2 4.9 96.1 8.1 C99.1 25.4 97.5 45.7 98.2 63.5 C98.8 82.2 96.8 94.9 92.7 96.2 C75.8 98.2 53.4 96.3 34.2 97.1 C18.8 97.8 6.4 96.6 4.3 92.5 C1.8 75.7 3.5 54.3 2.7 36.8 C2.1 20.5 2.8 9.2 4.2 6.4 Z' fill='none' stroke='%23111111' stroke-width='1.15' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  opacity: 1;
   pointer-events: none;
+  transform: rotate(-0.12deg);
+  transition: transform 220ms ease;
+}
+
+.work-card > *,
+.note-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .note-card {
@@ -423,7 +420,6 @@ h2 {
   .work-card:focus-within,
   .note-card:hover,
   .note-card:focus-within {
-    border-color: rgba(17, 17, 17, 0.22);
     background: rgba(255, 255, 255, 0.66);
     box-shadow:
       0 36px 100px rgba(17, 17, 17, 0.13),
@@ -444,16 +440,16 @@ h2 {
   .work-card:focus-within::after,
   .note-card:hover::after,
   .note-card:focus-within::after {
-    opacity: 0.72;
-    transform: translateX(32%);
+    transform: rotate(0.12deg) scale(0.998);
   }
+
 }
 
 .work-card__meta {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  color: var(--accent);
+  color: var(--ink);
   font-size: 13px;
   font-weight: 900;
   text-transform: uppercase;
@@ -462,18 +458,33 @@ h2 {
 .work-card h2,
 .note-card h2 {
   font-size: clamp(27px, 2.7vw, 40px);
-  font-weight: 800;
+  font-weight: 900;
+}
+
+.card-title {
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  -webkit-text-stroke-color: currentColor;
+  -webkit-text-stroke-width: 0.014em;
+  paint-order: stroke fill;
+  text-shadow:
+    0.012em 0 currentColor,
+    -0.008em 0 currentColor,
+    0 0.01em currentColor,
+    0 -0.006em currentColor;
 }
 
 .work-card p,
 .note-card p {
-  color: #303232;
+  color: var(--ink);
   font-size: 16px;
   line-height: 1.55;
 }
 
 .note-card time {
-  color: var(--muted);
+  color: var(--ink);
   font-size: 13px;
   font-weight: 900;
 }
@@ -482,14 +493,13 @@ h2 {
 .note-card a,
 .back-link {
   width: fit-content;
+  color: var(--ink);
   font-family: var(--font-accent);
   font-weight: 900;
   text-decoration-thickness: 2px;
   text-underline-offset: 5px;
 }
 
-.work-card a:hover,
-.note-card a:hover,
 .back-link:hover {
   color: var(--accent);
 }

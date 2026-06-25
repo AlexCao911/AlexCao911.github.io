@@ -26,7 +26,7 @@ export function GalleryPage() {
               <span>{work.year}</span>
               <span>{work.type}</span>
             </div>
-            <h2>{work.title}</h2>
+            <h2 className="card-title">{work.title}</h2>
             <p>{work.summary}</p>
             <a
               href={`/gallery/${work.slug}`}

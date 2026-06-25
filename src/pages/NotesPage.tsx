@@ -18,7 +18,7 @@ export function NotesPage() {
         {notes.map((note) => (
           <article className="note-card" key={note.slug}>
             <time>{note.date}</time>
-            <h2>{note.title}</h2>
+            <h2 className="card-title">{note.title}</h2>
             <p>{note.excerpt}</p>
             <a
               href={`/notes/${note.slug}`}
