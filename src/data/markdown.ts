@@ -22,6 +22,7 @@ export type MarkdownEmbedBlock = {
   type: "embed";
   src: string;
   title: string;
+  poster?: string;
   caption?: string;
 };
 
@@ -145,6 +146,7 @@ function parseMediaBlock(block: string): MarkdownBlock | null {
     type: "embed",
     src,
     title: field(fields, "title", "Embedded media"),
+    poster: optionalField(fields, "poster"),
     caption: optionalField(fields, "caption"),
   };
 }

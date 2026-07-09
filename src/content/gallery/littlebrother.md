@@ -17,6 +17,7 @@ The project combines physical interaction, motion behavior, and character design
 ::embed
 src: https://www.youtube.com/embed/AsqaLjSkV0g
 title: LittleBrother: The Ultimate MakerSpace Robot You NEED to See!
+poster: /assets/content/littlebrother/youtube-poster.jpg
 caption: Project walkthrough video by Alexander Cao.
 ::
 

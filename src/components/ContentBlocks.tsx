@@ -1,4 +1,5 @@
 import { type MarkdownBlock } from "../data/markdown";
+import { LiteYouTubeEmbed } from "./LiteYouTubeEmbed";
 import "../content-media.css";
 
 type ContentBlocksProps = {
@@ -50,13 +51,7 @@ export function ContentBlocks({ blocks }: ContentBlocksProps) {
 
         return (
           <figure className="content-media content-media-embed" key={`${block.type}-${block.src}-${index}`}>
-            <iframe
-              src={block.src}
-              title={block.title}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
+            <LiteYouTubeEmbed src={block.src} title={block.title} poster={block.poster} />
             {block.caption ? <figcaption>{block.caption}</figcaption> : null}
           </figure>
         );

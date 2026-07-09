@@ -86,7 +86,12 @@ title: Demo embed
     expect(screen.getByText("Intro paragraph.")).toBeInTheDocument();
     expect(screen.getByRole("img", { name: /demo screen/i })).toHaveAttribute("src", "/assets/content/demo/screen.png");
     expect(document.querySelector("video")).toHaveAttribute("src", "/assets/content/demo/demo.mp4");
-    expect(screen.getByTitle("Demo embed")).toHaveAttribute("src", "https://www.youtube.com/embed/demo");
+    expect(screen.queryByTitle("Demo embed")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /play demo embed/i }));
+    expect(screen.getByTitle("Demo embed")).toHaveAttribute(
+      "src",
+      "https://www.youtube-nocookie.com/embed/demo?autoplay=1&rel=0"
+    );
     expect(screen.getByRole("link", { name: /demo source/i })).toHaveAttribute(
       "href",
       "https://github.com/demo/project"
@@ -170,9 +175,15 @@ title: Demo embed
       "href",
       "https://github.com/Little-Brother-ScalableHCI/Little-Brother"
     );
+    expect(screen.queryByTitle(/ultimate makerspace robot/i)).not.toBeInTheDocument();
+    expect(document.querySelector(".lite-youtube__poster")).toHaveAttribute(
+      "src",
+      "/assets/content/littlebrother/youtube-poster.jpg"
+    );
+    fireEvent.click(screen.getByRole("button", { name: /play littlebrother/i }));
     expect(screen.getByTitle(/ultimate makerspace robot/i)).toHaveAttribute(
       "src",
-      "https://www.youtube.com/embed/AsqaLjSkV0g"
+      "https://www.youtube-nocookie.com/embed/AsqaLjSkV0g?autoplay=1&rel=0"
     );
   });
 
