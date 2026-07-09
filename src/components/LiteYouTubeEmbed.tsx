@@ -30,7 +30,6 @@ function getYouTubeVideoId(src: string) {
 }
 
 export function LiteYouTubeEmbed({ src, title, poster }: LiteYouTubeEmbedProps) {
-  const [isActive, setIsActive] = useState(false);
   const videoId = getYouTubeVideoId(src);
 
   if (!videoId) {
@@ -45,32 +44,20 @@ export function LiteYouTubeEmbed({ src, title, poster }: LiteYouTubeEmbedProps) 
     );
   }
 
-  if (isActive) {
-    return (
-      <iframe
-        src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`}
-        title={title}
-        loading="eager"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      />
-    );
-  }
+  const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
   return (
-    <button className="lite-youtube" type="button" aria-label={`Play ${title}`} onClick={() => setIsActive(true)}>
+    <a className="lite-youtube" href={youtubeUrl} aria-label={`Play ${title}`}>
       <img
         className="lite-youtube__poster"
         src={poster ?? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
-        alt=""
-        loading="lazy"
+        alt={title}
+        loading="eager"
         decoding="async"
-        aria-hidden="true"
       />
-      <span className="lite-youtube__scrim" aria-hidden="true" />
       <span className="lite-youtube__play" aria-hidden="true">
         Play
       </span>
-    </button>
+    </a>
   );
 }

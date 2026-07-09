@@ -31,6 +31,7 @@
 
 .lite-youtube {
   position: relative;
+  display: block;
   min-height: 320px;
   padding: 0;
   aspect-ratio: 16 / 9;
@@ -45,19 +46,9 @@
   border-radius: 0;
   object-fit: cover;
   box-shadow: none;
-  filter: grayscale(1) contrast(1.08);
-  transform: scale(1.02);
-  transition:
-    filter 180ms ease,
-    transform 180ms ease;
-}
-
-.lite-youtube__scrim {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(247, 247, 244, 0.12), rgba(17, 17, 17, 0.28)),
-    rgba(247, 247, 244, 0.18);
+  filter: none;
+  transform: none;
+  transition: transform 180ms ease;
 }
 
 .lite-youtube__play {
@@ -84,8 +75,7 @@
 }
 
 .lite-youtube:hover .lite-youtube__poster {
-  filter: grayscale(0) contrast(1.02);
-  transform: scale(1.04);
+  transform: scale(1.01);
 }
 
 .lite-youtube:hover .lite-youtube__play {

@@ -86,11 +86,14 @@ title: Demo embed
     expect(screen.getByText("Intro paragraph.")).toBeInTheDocument();
     expect(screen.getByRole("img", { name: /demo screen/i })).toHaveAttribute("src", "/assets/content/demo/screen.png");
     expect(document.querySelector("video")).toHaveAttribute("src", "/assets/content/demo/demo.mp4");
+    expect(screen.getByRole("link", { name: /play demo embed/i })).toHaveAttribute(
+      "href",
+      "https://www.youtube.com/watch?v=demo"
+    );
     expect(screen.queryByTitle("Demo embed")).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: /play demo embed/i }));
-    expect(screen.getByTitle("Demo embed")).toHaveAttribute(
+    expect(screen.getByRole("img", { name: /demo embed/i })).toHaveAttribute(
       "src",
-      "https://www.youtube-nocookie.com/embed/demo?autoplay=1&rel=0"
+      "https://i.ytimg.com/vi/demo/hqdefault.jpg"
     );
     expect(screen.getByRole("link", { name: /demo source/i })).toHaveAttribute(
       "href",
@@ -175,16 +178,16 @@ title: Demo embed
       "href",
       "https://github.com/Little-Brother-ScalableHCI/Little-Brother"
     );
+    expect(screen.getByRole("link", { name: /play little brother: where chaos becomes compass/i })).toHaveAttribute(
+      "href",
+      "https://www.youtube.com/watch?v=AsqaLjSkV0g"
+    );
     expect(screen.queryByTitle(/little brother: where chaos becomes compass/i)).not.toBeInTheDocument();
     expect(document.querySelector(".lite-youtube__poster")).toHaveAttribute(
       "src",
       "/assets/content/littlebrother/youtube-poster.jpg"
     );
-    fireEvent.click(screen.getByRole("button", { name: /play little brother: where chaos becomes compass/i }));
-    expect(screen.getByTitle(/little brother: where chaos becomes compass/i)).toHaveAttribute(
-      "src",
-      "https://www.youtube-nocookie.com/embed/AsqaLjSkV0g?autoplay=1&rel=0"
-    );
+    expect(screen.queryByTitle(/little brother: where chaos becomes compass/i)).not.toBeInTheDocument();
   });
 
   test("renders gallery and notes as title-first showcase pages", () => {
