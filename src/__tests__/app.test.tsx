@@ -170,18 +170,18 @@ title: Demo embed
     window.history.pushState({}, "", "/gallery/littlebrother");
     render(<App />);
 
-    expect(screen.getByRole("heading", { name: /littlebrother/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /little brother: where chaos becomes compass/i })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /little-brother-scalablehci\/little-brother/i })).toHaveAttribute(
       "href",
       "https://github.com/Little-Brother-ScalableHCI/Little-Brother"
     );
-    expect(screen.queryByTitle(/ultimate makerspace robot/i)).not.toBeInTheDocument();
+    expect(screen.queryByTitle(/little brother: where chaos becomes compass/i)).not.toBeInTheDocument();
     expect(document.querySelector(".lite-youtube__poster")).toHaveAttribute(
       "src",
       "/assets/content/littlebrother/youtube-poster.jpg"
     );
-    fireEvent.click(screen.getByRole("button", { name: /play littlebrother/i }));
-    expect(screen.getByTitle(/ultimate makerspace robot/i)).toHaveAttribute(
+    fireEvent.click(screen.getByRole("button", { name: /play little brother: where chaos becomes compass/i }));
+    expect(screen.getByTitle(/little brother: where chaos becomes compass/i)).toHaveAttribute(
       "src",
       "https://www.youtube-nocookie.com/embed/AsqaLjSkV0g?autoplay=1&rel=0"
     );

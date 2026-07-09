@@ -1,24 +1,24 @@
 ---
 slug: littlebrother
-title: LittleBrother
-year: 2026
+title: Little Brother: Where Chaos Becomes Compass
+year: 2025 01
 type: Robotics Prototype
-summary: A compact makerspace robot demo that turns sensing, motion, and character into a playful physical interface.
+summary: A cable-driven robot that turns the lost-and-found cycle in a makerspace into a guided, automated process.
 accent: #4343f8
 order: 1
 ---
 
-LittleBrother is a small robot prototype built around the idea that a makerspace machine can feel approachable, expressive, and useful at the same time.
+In any bustling makerspace or creative workshop, 90% of our innovation time is often lost to the mundane: searching for the tools we need. We lose time to the chaos of disorganized workspaces, and when a vital tool goes missing, our creative momentum stalls.
 
-The project combines physical interaction, motion behavior, and character design into a demo that reads less like a static device and more like a tiny companion for creative work.
+Little Brother was born from a desire to reclaim that lost time. It is a custom-engineered, cable-driven robot designed specifically to turn the "lost and found" cycle into an automated, efficient process. By integrating real-time object detection with a dynamic physical navigation system, Little Brother maps the workspace, identifies the location of misplaced items, and—whispering where our tools have hidden—becomes the essential compass for the creative process.
 
 [Little-Brother-ScalableHCI/Little-Brother](https://github.com/Little-Brother-ScalableHCI/Little-Brother)
 
 ::embed
 src: https://www.youtube.com/embed/AsqaLjSkV0g
-title: LittleBrother: The Ultimate MakerSpace Robot You NEED to See!
+title: Little Brother: Where Chaos Becomes Compass
 poster: /assets/content/littlebrother/youtube-poster.jpg
 caption: Project walkthrough video by Alexander Cao.
 ::
 
-The work is useful as both a robotics experiment and a communication piece: it shows the mechanics, the personality, and the possible role of a small robot inside a studio or makerspace environment.
+Developed during the Scalable HCI Symposium 2025 Hackathon, this project demonstrates how human-robot interaction can move beyond industrial efficiency into the realm of everyday convenience. Little Brother isn't just a machine; it is a solution for when we need a helping hand in our most creative environments.
