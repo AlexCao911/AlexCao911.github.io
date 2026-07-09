@@ -41,7 +41,12 @@ describe("personal website routing", () => {
   });
 
   test("loads gallery and notes content from markdown collections", () => {
-    expect(works.map((work) => work.slug)).toEqual(["interface-atlas", "motion-notes", "local-ai-watch"]);
+    expect(works.map((work) => work.slug)).toEqual([
+      "littlebrother",
+      "interface-atlas",
+      "motion-notes",
+      "local-ai-watch",
+    ]);
     expect(notes.map((note) => note.slug)).toEqual(["designing-with-motion", "personal-systems", "small-interfaces"]);
   });
 
@@ -145,15 +150,20 @@ title: Demo embed
   test("renders gallery cards and a work detail page", () => {
     window.history.pushState({}, "", "/gallery");
 
-    const { rerender } = render(<App />);
+    const { unmount } = render(<App />);
 
     expect(screen.getByRole("heading", { name: /gallery/i })).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: /open work/i })).toHaveLength(3);
+    expect(screen.getAllByRole("link", { name: /open work/i })).toHaveLength(4);
 
-    window.history.pushState({}, "", "/gallery/interface-atlas");
-    rerender(<App />);
+    unmount();
+    window.history.pushState({}, "", "/gallery/littlebrother");
+    render(<App />);
 
-    expect(screen.getByRole("heading", { name: /interface atlas/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /littlebrother/i })).toBeInTheDocument();
+    expect(screen.getByTitle(/ultimate makerspace robot/i)).toHaveAttribute(
+      "src",
+      "https://www.youtube.com/embed/AsqaLjSkV0g"
+    );
   });
 
   test("renders gallery and notes as title-first showcase pages", () => {
@@ -284,6 +294,7 @@ title: Demo embed
 
     const workCards = Array.from(document.querySelectorAll<HTMLElement>(".work-card"));
     expect(workCards.map((card) => card.style.getPropertyValue("--accent"))).toEqual([
+      "#4343f8",
       "#4343f8",
       "#4343f8",
       "#4343f8",

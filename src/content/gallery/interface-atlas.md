@@ -5,7 +5,7 @@ year: 2026
 type: Product System
 summary: A compact visual system for collecting reusable interaction patterns.
 accent: #4343f8
-order: 1
+order: 2
 ---
 
 Interface Atlas organizes product flows into reusable interaction maps, with emphasis on scanning, comparison, and fast prototyping.
