@@ -12,6 +12,8 @@ LittleBrother is a small robot prototype built around the idea that a makerspace
 
 The project combines physical interaction, motion behavior, and character design into a demo that reads less like a static device and more like a tiny companion for creative work.
 
+[Little-Brother-ScalableHCI/Little-Brother](https://github.com/Little-Brother-ScalableHCI/Little-Brother)
+
 ::embed
 src: https://www.youtube.com/embed/AsqaLjSkV0g
 title: LittleBrother: The Ultimate MakerSpace Robot You NEED to See!

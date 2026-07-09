@@ -13,6 +13,23 @@ export function ContentBlocks({ blocks }: ContentBlocksProps) {
           return <p key={`${block.type}-${index}`}>{block.text}</p>;
         }
 
+        if (block.type === "link") {
+          const isExternal = /^https?:\/\//.test(block.href);
+
+          return (
+            <p className="content-link-row" key={`${block.type}-${block.href}-${index}`}>
+              <a
+                className="content-link"
+                href={block.href}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noreferrer" : undefined}
+              >
+                {block.label}
+              </a>
+            </p>
+          );
+        }
+
         if (block.type === "image") {
           return (
             <figure className="content-media content-media-image" key={`${block.type}-${block.src}-${index}`}>

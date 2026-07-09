@@ -25,7 +25,18 @@ export type MarkdownEmbedBlock = {
   caption?: string;
 };
 
-export type MarkdownBlock = MarkdownTextBlock | MarkdownImageBlock | MarkdownVideoBlock | MarkdownEmbedBlock;
+export type MarkdownLinkBlock = {
+  type: "link";
+  href: string;
+  label: string;
+};
+
+export type MarkdownBlock =
+  | MarkdownTextBlock
+  | MarkdownImageBlock
+  | MarkdownVideoBlock
+  | MarkdownEmbedBlock
+  | MarkdownLinkBlock;
 
 export type MarkdownDocument = {
   fields: Record<string, string>;
@@ -89,6 +100,9 @@ function markdownToBlocks(source: string): MarkdownBlock[] {
       const markdownImage = parseMarkdownImage(block);
       if (markdownImage) return [markdownImage];
 
+      const markdownLink = parseMarkdownLink(block);
+      if (markdownLink) return [markdownLink];
+
       return [
         {
           type: "paragraph",
@@ -143,6 +157,17 @@ function parseMarkdownImage(block: string): MarkdownImageBlock | null {
     type: "image",
     alt: image[1],
     src: image[2],
+  };
+}
+
+function parseMarkdownLink(block: string): MarkdownLinkBlock | null {
+  const link = block.match(/^\[(.*?)]\((.*?)\)$/);
+  if (!link) return null;
+
+  return {
+    type: "link",
+    label: link[1],
+    href: link[2],
   };
 }
 

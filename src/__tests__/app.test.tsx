@@ -74,10 +74,12 @@ caption: Motion demo
 src: https://www.youtube.com/embed/demo
 title: Demo embed
 ::
+
+[Demo source](https://github.com/demo/project)
 `);
 
     expect(markdownDocument.body).toEqual(["Intro paragraph."]);
-    expect(markdownDocument.blocks.map((block) => block.type)).toEqual(["paragraph", "image", "video", "embed"]);
+    expect(markdownDocument.blocks.map((block) => block.type)).toEqual(["paragraph", "image", "video", "embed", "link"]);
 
     render(<ContentBlocks blocks={markdownDocument.blocks} />);
 
@@ -85,6 +87,10 @@ title: Demo embed
     expect(screen.getByRole("img", { name: /demo screen/i })).toHaveAttribute("src", "/assets/content/demo/screen.png");
     expect(document.querySelector("video")).toHaveAttribute("src", "/assets/content/demo/demo.mp4");
     expect(screen.getByTitle("Demo embed")).toHaveAttribute("src", "https://www.youtube.com/embed/demo");
+    expect(screen.getByRole("link", { name: /demo source/i })).toHaveAttribute(
+      "href",
+      "https://github.com/demo/project"
+    );
   });
 
   test("uses the official ReactBits BubbleMenu navigation shell", () => {
@@ -160,6 +166,10 @@ title: Demo embed
     render(<App />);
 
     expect(screen.getByRole("heading", { name: /littlebrother/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /little-brother-scalablehci\/little-brother/i })).toHaveAttribute(
+      "href",
+      "https://github.com/Little-Brother-ScalableHCI/Little-Brother"
+    );
     expect(screen.getByTitle(/ultimate makerspace robot/i)).toHaveAttribute(
       "src",
       "https://www.youtube.com/embed/AsqaLjSkV0g"

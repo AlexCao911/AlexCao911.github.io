@@ -35,3 +35,32 @@
   font-weight: 900;
   line-height: 1.45;
 }
+
+.content-link-row {
+  margin: 18px 0 10px;
+}
+
+.content-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  color: var(--accent);
+  font-family: var(--font-accent);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    color 180ms ease,
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+.content-link:hover {
+  background: var(--ink);
+  color: var(--paper);
+  transform: translateY(-2px);
+}
